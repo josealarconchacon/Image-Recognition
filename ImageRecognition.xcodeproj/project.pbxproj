@@ -15,7 +15,6 @@
 		67486EE421F140BF0005ACFF /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67486EE321F140BF0005ACFF /* CreateAccountViewController.swift */; };
 		67486EE921F16B1F0005ACFF /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67486EE821F16B1F0005ACFF /* WelcomeViewController.swift */; };
 		67486EF021F1793A0005ACFF /* LoadImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67486EEF21F1793A0005ACFF /* LoadImageViewController.swift */; };
-		67486EF221F17C1A0005ACFF /* PersistedFacesApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67486EF121F17C1A0005ACFF /* PersistedFacesApi.swift */; };
 		67A6C1CE220A263E0063D519 /* ConfidenceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6C1CD220A263E0063D519 /* ConfidenceData.swift */; };
 		67A6C1D0220A265C0063D519 /* FaceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6C1CF220A265C0063D519 /* FaceInfo.swift */; };
 		67A6C1D2220A26B40063D519 /* PersistenceFaceDetectionAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6C1D1220A26B40063D519 /* PersistenceFaceDetectionAPIClient.swift */; };
@@ -36,7 +35,6 @@
 		67486EE321F140BF0005ACFF /* CreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
 		67486EE821F16B1F0005ACFF /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		67486EEF21F1793A0005ACFF /* LoadImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadImageViewController.swift; sourceTree = "<group>"; };
-		67486EF121F17C1A0005ACFF /* PersistedFacesApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistedFacesApi.swift; sourceTree = "<group>"; };
 		67A6C1CD220A263E0063D519 /* ConfidenceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfidenceData.swift; sourceTree = "<group>"; };
 		67A6C1CF220A265C0063D519 /* FaceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceInfo.swift; sourceTree = "<group>"; };
 		67A6C1D1220A26B40063D519 /* PersistenceFaceDetectionAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceFaceDetectionAPIClient.swift; sourceTree = "<group>"; };
@@ -96,7 +94,6 @@
 		67486EE521F169FE0005ACFF /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				67486EF121F17C1A0005ACFF /* PersistedFacesApi.swift */,
 				67A6C1CD220A263E0063D519 /* ConfidenceData.swift */,
 				67A6C1CF220A265C0063D519 /* FaceInfo.swift */,
 			);
@@ -225,7 +222,6 @@
 			files = (
 				670A670C2208D95C00E04A51 /* MatchingFacesViewController.swift in Sources */,
 				67486EF021F1793A0005ACFF /* LoadImageViewController.swift in Sources */,
-				67486EF221F17C1A0005ACFF /* PersistedFacesApi.swift in Sources */,
 				6730F9F821FA3FEF0033DB64 /* AppError.swift in Sources */,
 				67486EE921F16B1F0005ACFF /* WelcomeViewController.swift in Sources */,
 				670A670E2209156700E04A51 /* MapViewController.swift in Sources */,
