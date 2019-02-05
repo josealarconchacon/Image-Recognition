@@ -12,12 +12,4 @@ struct FaceInfo: Codable {
     let faceListId: String
     let maxNumOfCandidatesReturned: Int
     let mode: String
-    
-    /*{
-     "faceId": "6f86b393-440a-488c-a4c7-388b9ebb6e54",
-     "faceListId": "newprojectfacelist",
-     "maxNumOfCandidatesReturned": 1,
-     "mode": "matchPerson"
-     }
-     */
 }
