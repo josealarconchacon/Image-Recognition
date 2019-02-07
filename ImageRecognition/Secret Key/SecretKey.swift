@@ -9,5 +9,5 @@
 import Foundation
 
 class SecretKeys {
-   
+   static let APIKey = "REMOVED_AZURE_KEY"
 }

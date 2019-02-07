@@ -1,16 +1,16 @@
 //
-//  PersistenceFaceDetectionAPIClient.swift
+//  RequestFaceAPIClient.swift
 //  ImageRecognition
 //
-//  Created by Jose Alarcon Chacon on 2/5/19.
+//  Created by Jose Alarcon Chacon on 2/7/19.
 //  Copyright © 2019 Jose Alarcon Chacon. All rights reserved.
 //
 
 import Foundation
 
-final class PersistenceFaceDetectionAPIClient {
-    static func fetchImageFaceInfo() {
-        let endpointURLString = "https://eastus.api.cognitive.microsoft.com/face/v1.0/findsimilars"
+final class RequestFaceAPIClient {
+    static func fetchImageFaceUrl(image: String, completionHandler: @escaping ((RequestFace) -> Void)) {
+        let endpointURLString = "https://eastus.api.cognitive.microsoft.com/face/v1.0/facelists/allfacesavailable2019/persistedFaces"
         guard let url = URL(string: endpointURLString) else {
             print("Bad url")
             return
@@ -20,13 +20,10 @@ final class PersistenceFaceDetectionAPIClient {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         request.httpMethod = "POST"
-
-        let faceImageInfo = FaceInfo.init(faceId: "6f86b393-440a-488c-a4c7-388b9ebb6e54",
-                                              faceListId: "newprojectfacelist",
-                                              maxNumOfCandidatesReturned: 1,
-                                              mode: "matchPerson")
+        
+        let newFaceInfo = RequestFace.init(persistedFaceId: image)
         do {
-            let data = try JSONEncoder().encode(faceImageInfo)
+            let data = try JSONEncoder().encode(newFaceInfo)
             request.httpBody = data
         } catch {
             print("json encoding error: \(error)")
@@ -37,8 +34,10 @@ final class PersistenceFaceDetectionAPIClient {
             } else if let data = data {
                 print("data: \(data)")
                 do {
-                    let confidenceData = try JSONDecoder().decode([ConfidenceData].self, from: data)
-                    print(confidenceData)
+                    let data = try JSONDecoder().decode([RequestFace].self, from: data)
+                    guard let imageData = data.first else {return}
+                    completionHandler(imageData)
+                    
                 } catch {
                     print("decoding error: \(error)")
                 }
