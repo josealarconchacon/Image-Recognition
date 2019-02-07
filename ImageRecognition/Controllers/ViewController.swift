@@ -20,16 +20,20 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       textFieldEmail.delegate = self
+        textFieldEmail.delegate = self
         textFieldPassword.delegate = self
+        if let userName = UserDefaults.standard.object(forKey: UserDefaultKey.userEmailKey) as? String {
+            textFieldEmail.text = userName
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         registerKeyboardNotification()
+        
     }
     
     private func registerKeyboardNotification(){
-         NotificationCenter.default.addObserver(self, selector: #selector(willShowKeyboard(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(willShowKeyboard(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(willHideKeyboard(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     private func unregisterKeyboardNotification() {
@@ -59,12 +63,17 @@ class ViewController: UIViewController {
         self.present(destinationViewController, animated: true, completion:  nil)
     }
     @IBAction func signInButtonPress(_ sender: UIButton) {
+        if let text = textFieldEmail.text {
+            UserDefaults.standard.set(text, forKey: UserDefaultKey.userEmailKey)
+        }
+            
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         guard let destinationWelcomeViewController = storyboard.instantiateViewController(withIdentifier: "account1") as? WelcomeViewController else {return}
         destinationWelcomeViewController.accountToT = create
         self.present(destinationWelcomeViewController, animated: true, completion:  nil)
         textFieldEmail.resignFirstResponder()
         textFieldPassword.resignFirstResponder()
+        
     }
 }
 extension ViewController: UITextFieldDelegate{

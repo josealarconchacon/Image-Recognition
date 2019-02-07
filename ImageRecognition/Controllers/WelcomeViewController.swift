@@ -25,6 +25,8 @@ class WelcomeViewController: UIViewController {
     @IBAction func cancelButton(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
+    @IBAction func doneButtonPress(_ sender: UIBarButtonItem) {
+    }
     @IBAction func ckeckMarkWassPress(_ sender: UIButton) { // Check Mark B
         UIView.animate(withDuration: 0.3, delay: 0.1, options: .curveLinear, animations: {
             sender.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)

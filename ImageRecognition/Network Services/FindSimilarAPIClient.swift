@@ -8,8 +8,8 @@
 
 import Foundation
 
-final class PersistenceFaceDetectionAPIClient {
-    static func fetchImageFaceInfo() {
+final class FindSimilarAPIClient {
+    static func fetchImageFaceInfo(faceID: String) {
         let endpointURLString = "https://eastus.api.cognitive.microsoft.com/face/v1.0/findsimilars"
         guard let url = URL(string: endpointURLString) else {
             print("Bad url")
@@ -21,7 +21,7 @@ final class PersistenceFaceDetectionAPIClient {
         
         request.httpMethod = "POST"
 
-        let faceImageInfo = FaceInfo.init(faceId: "6f86b393-440a-488c-a4c7-388b9ebb6e54",
+        let faceImageInfo = FaceInfo.init(faceId: faceID,
                                               faceListId: "newprojectfacelist",
                                               maxNumOfCandidatesReturned: 1,
                                               mode: "matchPerson")
@@ -41,9 +41,10 @@ final class PersistenceFaceDetectionAPIClient {
                     print(confidenceData)
                 } catch {
                     print("decoding error: \(error)")
+                    }
                 }
             }
-        }
         task.resume()
+        }
     }
-}
+
