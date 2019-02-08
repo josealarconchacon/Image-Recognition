@@ -14,7 +14,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var textFieldEmail: UITextField!
     @IBOutlet weak var textFieldPassword: UITextField!
     @IBOutlet weak var baseView: UIView!
-    
     var create = String ()
    
     
@@ -22,6 +21,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         textFieldEmail.delegate = self
         textFieldPassword.delegate = self
+        textFieldEmail.addTarget(self, action: #selector(textFieldDropDown), for: .touchDown)
         if let userName = UserDefaults.standard.object(forKey: UserDefaultKey.userEmailKey) as? String {
             textFieldEmail.text = userName
         }
@@ -31,7 +31,9 @@ class ViewController: UIViewController {
         registerKeyboardNotification()
         
     }
-    
+    @objc func textFieldDropDown() {
+        
+    }
     private func registerKeyboardNotification(){
         NotificationCenter.default.addObserver(self, selector: #selector(willShowKeyboard(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(willHideKeyboard(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
