@@ -9,7 +9,7 @@
 import Foundation
 
 final class FindSimilarAPIClient {
-    static func fetchImageFaceInfo(faceID: String) {
+    static func fetchImageFaceInfo(faceID: String, completionHandler: @escaping ((ConfidenceData) -> Void)) {
         let endpointURLString = "https://eastus.api.cognitive.microsoft.com/face/v1.0/findsimilars"
         guard let url = URL(string: endpointURLString) else {
             print("Bad url")
@@ -22,7 +22,8 @@ final class FindSimilarAPIClient {
         request.httpMethod = "POST"
 
         let faceImageInfo = FaceInfo.init(faceId: faceID,
-                                              faceListId: "newprojectfacelist",
+//                                              faceListId: "newprojectfacelist",
+                                              faceListId: "allfacesavailable2019",
                                               maxNumOfCandidatesReturned: 1,
                                               mode: "matchPerson")
         do {
@@ -38,7 +39,9 @@ final class FindSimilarAPIClient {
                 print("data: \(data)")
                 do {
                     let confidenceData = try JSONDecoder().decode([ConfidenceData].self, from: data)
-                    print(confidenceData)
+                    guard let dataUnwrapped = confidenceData.first else {return}
+                    completionHandler(dataUnwrapped)
+//                    print(confidenceData)
                 } catch {
                     print("decoding error: \(error)")
                     }

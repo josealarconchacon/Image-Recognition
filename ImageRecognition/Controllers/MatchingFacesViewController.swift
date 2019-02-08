@@ -19,8 +19,9 @@ class MatchingFacesViewController: UIViewController {
     let uploadImageRequest = DataPersistenceManager()
     
     
-    let faceIDtoSend = "757e318d-f0f5-469f-a8e5-bfa6a888c1b0"
-    let urlToSend = URL(string: "https://resources.stuff.co.nz/content/dam/images/1/m/u/4/l/b/image.related.StuffLandscapeSixteenByNine.710x400.1msgyb.png/1510688122869.jpg")
+    let faceIDtoSend1 = "e75dfb88-5dac-4589-9091-b3f2867a4a37"
+//    let urlToSend = URL(string: "https://resources.stuff.co.nz/content/dam/images/1/m/u/4/l/b/image.related.StuffLandscapeSixteenByNine.710x400.1msgyb.png/1510688122869.jpg")
+    let faceUrl = URL(string: "https://1.bp.blogspot.com/-SkV_JgzGtoc/VrL2rU1pmNI/AAAAAAABVCQ/jRza4HBjJDw/s1600/Kids%2Bheadshots_los%2Bangeles008Lane_016%2Bweb%2Bfb.jpg")
     
     private var camera: UIToolbar!
     private var imagePickerController = UIImagePickerController()
@@ -45,8 +46,18 @@ class MatchingFacesViewController: UIViewController {
     
     @IBAction func uploadButton(_ sender: UIButton) {
         // image will be upload
-        let newFaceId = FaceDetectAPIClient.fetchImageFaceUrl(urlInput: urlToSend!) { (data) in
-            print("DATA IS \(data)")
+        var faceIdToSend = String()
+        FaceDetectAPIClient.fetchImageFaceUrl(urlInput: faceUrl!) { (data) in
+            faceIdToSend = data.faceId
+            print("DATA IS \(faceIdToSend)")
+        }
+        FindSimilarAPIClient.fetchImageFaceInfo(faceID: faceIDtoSend1)  { (response) in
+//            faceIdToSend = data.faceId
+            print("Findsimilar data is \(response)")
+            let matchID = response.persistedFaceId
+            let confidence = response.confidence
+            print("match id is \(matchID)")
+            print("confidence is \(confidence)")
         }
     }
     
