@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>666792869688-173qin53aue21qi2uk1kcnbfi80seu7p.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.666792869688-173qin53aue21qi2uk1kcnbfi80seu7p</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCgpMdzNL2dm9gqvn9PoyvU-bgicbKTWrs</string>
+	<key>GCM_SENDER_ID</key>
+	<string>666792869688</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>con.jose.ImageRecognition</string>
+	<key>PROJECT_ID</key>
+	<string>imagerecognition-2ddd4</string>
+	<key>STORAGE_BUCKET</key>
+	<string>imagerecognition-2ddd4.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false></false>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:666792869688:ios:e50d87c838dc791e</string>
+	<key>DATABASE_URL</key>
+	<string>https://imagerecognition-2ddd4.firebaseio.com</string>
+</dict>
+</plist>

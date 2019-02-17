@@ -26,6 +26,10 @@ class WelcomeViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     @IBAction func doneButtonPress(_ sender: UIBarButtonItem) {
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        guard let destinationWelcomeViewController = storyboard.instantiateViewController(withIdentifier: "loadingImage") as? MatchingFacesViewController else {return}
+        destinationWelcomeViewController.accountToT = accountToT
+        self.present(destinationWelcomeViewController, animated: true, completion: nil)
     }
     @IBAction func ckeckMarkWassPress(_ sender: UIButton) { // Check Mark B
         UIView.animate(withDuration: 0.3, delay: 0.1, options: .curveLinear, animations: {
