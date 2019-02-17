@@ -1,5 +1,14 @@
-source 'https://github.com/CocoaPods/Specs.git'
-target 'YOUR_APPLICATION_TARGET_NAME_HERE' do
-pod 'GoogleMaps'
-pod 'GooglePlaces'
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
 
+target 'ImageRecognition' do
+  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for ImageRecognition
+pod 'Firebase/Core' 
+pod 'Firebase/Storage' 
+pod 'Firebase/Auth'
+pod 'Firebase/Firestore'
+
+end

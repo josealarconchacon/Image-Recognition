@@ -17,6 +17,7 @@ class MatchingFacesViewController: UIViewController {
     @IBOutlet weak var uploadImage: UIImageView!
     @IBOutlet weak var matchingResultLabel: UILabel!
     let uploadImageRequest = DataPersistenceManager()
+    var accountToT = String()
     
     
     let faceIDtoSend1 = "e75dfb88-5dac-4589-9091-b3f2867a4a37"

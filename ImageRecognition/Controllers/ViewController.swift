@@ -56,7 +56,7 @@ class ViewController: UIViewController {
         baseView.transform = CGAffineTransform(translationX: 0, y: -keyboardFrame.height)
     }
     @objc private func willHideKeyboard(notification: Notification) {
-         baseView.transform = CGAffineTransform.identity // to put the keyboard down
+//         baseView.transform = CGAffineTransform.identity // to put the keyboard down
     }
     @IBAction func createAccountPress(_ sender: UIButton) {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
