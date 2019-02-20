@@ -9,6 +9,7 @@
 import UIKit
 import Photos
 import UserNotifications
+import FirebaseFirestore
 import UIKit
 //import AWSCore
 //import AWSS3
@@ -20,7 +21,7 @@ class MatchingFacesViewController: UIViewController {
     var accountToT = String()
     
     
-    let faceIDtoSend1 = "e75dfb88-5dac-4589-9091-b3f2867a4a37"
+    let faceIDtoSend1 = "0a44cd99-28cb-4a85-a9a5-ac8eb6820c95"
 //    let urlToSend = URL(string: "https://resources.stuff.co.nz/content/dam/images/1/m/u/4/l/b/image.related.StuffLandscapeSixteenByNine.710x400.1msgyb.png/1510688122869.jpg")
     let faceUrl = URL(string: "https://1.bp.blogspot.com/-SkV_JgzGtoc/VrL2rU1pmNI/AAAAAAABVCQ/jRza4HBjJDw/s1600/Kids%2Bheadshots_los%2Bangeles008Lane_016%2Bweb%2Bfb.jpg")
     
@@ -33,6 +34,7 @@ class MatchingFacesViewController: UIViewController {
         super.viewDidLoad()
         uploadImage.layer.cornerRadius = uploadImage.frame.size.width / 2
         uploadImage.layer.masksToBounds = true
+        uploadImage.clipsToBounds = true
         let imagePicker:UIImagePickerController?=UIImagePickerController()
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapGesture))
         uploadImage.addGestureRecognizer(tapGesture)
@@ -60,6 +62,9 @@ class MatchingFacesViewController: UIViewController {
             print("match id is \(matchID)")
             print("confidence is \(confidence)")
         }
+        //Upload Image
+        guard let image = uploadImage.image else { return }
+        ImageManager.manager.uploadImage(image: image, fileName: "image")
     }
     
     @objc func tapGesture(gesture: UIGestureRecognizer) {

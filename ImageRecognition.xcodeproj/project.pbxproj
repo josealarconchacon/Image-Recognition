@@ -19,6 +19,9 @@
 		67486EE421F140BF0005ACFF /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67486EE321F140BF0005ACFF /* CreateAccountViewController.swift */; };
 		67486EE921F16B1F0005ACFF /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67486EE821F16B1F0005ACFF /* WelcomeViewController.swift */; };
 		67579F6E2217B710008EA2BF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 67579F6D2217B710008EA2BF /* GoogleService-Info.plist */; };
+		677E1444221BB0E100435303 /* ImageBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677E1443221BB0E100435303 /* ImageBox.swift */; };
+		677E1446221BB27F00435303 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677E1445221BB27F00435303 /* ImageManager.swift */; };
+		677E1448221BB5B600435303 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 677E1447221BB5B600435303 /* DatabaseManager.swift */; };
 		67A6C1CE220A263E0063D519 /* ConfidenceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6C1CD220A263E0063D519 /* ConfidenceData.swift */; };
 		67A6C1D0220A265C0063D519 /* FaceInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6C1CF220A265C0063D519 /* FaceInfo.swift */; };
 		67A6C1D2220A26B40063D519 /* FindSimilarAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6C1D1220A26B40063D519 /* FindSimilarAPIClient.swift */; };
@@ -47,6 +50,9 @@
 		67486EE321F140BF0005ACFF /* CreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
 		67486EE821F16B1F0005ACFF /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		67579F6D2217B710008EA2BF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		677E1443221BB0E100435303 /* ImageBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBox.swift; sourceTree = "<group>"; };
+		677E1445221BB27F00435303 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
+		677E1447221BB5B600435303 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		67A6C1CD220A263E0063D519 /* ConfidenceData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfidenceData.swift; sourceTree = "<group>"; };
 		67A6C1CF220A265C0063D519 /* FaceInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceInfo.swift; sourceTree = "<group>"; };
 		67A6C1D1220A26B40063D519 /* FindSimilarAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindSimilarAPIClient.swift; sourceTree = "<group>"; };
@@ -137,6 +143,9 @@
 				67A6C1CD220A263E0063D519 /* ConfidenceData.swift */,
 				670B8490220BCE8A00C8C0E5 /* DetectFaceUrl.swift */,
 				670B8492220BD0BB00C8C0E5 /* DetectFaceResponse.swift */,
+				677E1443221BB0E100435303 /* ImageBox.swift */,
+				677E1445221BB27F00435303 /* ImageManager.swift */,
+				677E1447221BB5B600435303 /* DatabaseManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -322,11 +331,14 @@
 				67486EE921F16B1F0005ACFF /* WelcomeViewController.swift in Sources */,
 				67A6C1D2220A26B40063D519 /* FindSimilarAPIClient.swift in Sources */,
 				67486EE421F140BF0005ACFF /* CreateAccountViewController.swift in Sources */,
+				677E1444221BB0E100435303 /* ImageBox.swift in Sources */,
 				670B848F220BCD8500C8C0E5 /* FaceDetectAPIClient.swift in Sources */,
 				670B84D5220CDC3B00C8C0E5 /* RequestFaceAPIClient.swift in Sources */,
 				670B8493220BD0BB00C8C0E5 /* DetectFaceResponse.swift in Sources */,
+				677E1446221BB27F00435303 /* ImageManager.swift in Sources */,
 				67A6C1D7220A28130063D519 /* SecretKey.swift in Sources */,
 				67C66E452218EFC300A55E3F /* NetworkHelper.swift in Sources */,
+				677E1448221BB5B600435303 /* DatabaseManager.swift in Sources */,
 				670B8491220BCE8A00C8C0E5 /* DetectFaceUrl.swift in Sources */,
 				67A6C1CE220A263E0063D519 /* ConfidenceData.swift in Sources */,
 				67E955D721F0D10500805123 /* ViewController.swift in Sources */,
