@@ -23,7 +23,7 @@ final class FindSimilarAPIClient {
 
         let faceImageInfo = FaceInfo.init(faceId: faceID,
 //                                              faceListId: "newprojectfacelist",
-                                              faceListId: "allfacesavailable2019",
+                                              faceListId: "newprojectfacelist",
                                               maxNumOfCandidatesReturned: 1,
                                               mode: "matchPerson")
         do {

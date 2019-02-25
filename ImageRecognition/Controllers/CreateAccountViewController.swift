@@ -14,10 +14,27 @@ class CreateAccountViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var createButton: UIButton!
+    @IBOutlet weak var imageView: UIImageView!
     
     var accountTo = String()
     override func viewDidLoad() {
         super.viewDidLoad()
+        imageView.layer.borderWidth = 1
+        imageView.layer.masksToBounds = false
+        imageView.layer.borderColor = UIColor.lightGray.cgColor
+        imageView.layer.cornerRadius = imageView.frame.height/4
+        imageView.clipsToBounds = true
+        setTextFiel()
+    }
+    func setTextFiel() {
+        firstNameTextField.clipsToBounds = true
+        firstNameTextField.layer.cornerRadius = 10.0
+        lastNameTextField.clipsToBounds = true
+        lastNameTextField.layer.cornerRadius = 10.0
+        emailTextField.clipsToBounds = true
+        emailTextField.layer.cornerRadius = 10.0
+        passwordTextField.clipsToBounds = true
+        passwordTextField.layer.cornerRadius = 10.0
     }
     @IBAction func backButton(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)

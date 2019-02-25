@@ -31,4 +31,7 @@ final class ImageCache {
             }
         }
     }
+    public func fetchImageFromCache(urlString: String) -> UIImage? {
+        return ImageCache.cache.object(forKey: urlString as NSString)
+    }
 }

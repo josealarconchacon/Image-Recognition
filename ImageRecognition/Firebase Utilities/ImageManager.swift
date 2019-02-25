@@ -17,15 +17,15 @@ protocol ImageManagerDelegate: AnyObject { // to get the imageURL
 
 final class ImageManager {
     weak var delegate: ImageManagerDelegate?
-    
-    private let imageStorage = Storage.storage()
+
+    public let imageStorage = Storage.storage()
     private lazy var imageStorageRef = imageStorage.reference()
-    // to create an Images Folder
+    // to create an Images Storege
     private lazy var imageRef = imageStorageRef.child("faceR")
-    
-    static let manager = ImageManager()
+
+    static var manager = ImageManager()
     private init(){}
-     // Uploading Image
+    // Uploading Image
     func uploadImage(image: UIImage, fileName: String) {
         let imageRef = imageStorageRef.child(fileName)
         guard let imageData = image.jpegData(compressionQuality: 1.0) else { return }
@@ -33,7 +33,7 @@ final class ImageManager {
             if let error = error {
                 print(" Error is: \(error)")
             }
-           else  if let metadata = metadata {
+            else  if let metadata = metadata {
                 let imageBox = ImageBox(fileName: fileName)
                 DatabaseManager.saveImage(fox: imageBox)
                 print(metadata.size)

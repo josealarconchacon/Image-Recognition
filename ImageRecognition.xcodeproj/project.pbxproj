@@ -33,6 +33,9 @@
 		67E955DA21F0D10500805123 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67E955D821F0D10500805123 /* Main.storyboard */; };
 		67E955DC21F0D10600805123 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67E955DB21F0D10600805123 /* Assets.xcassets */; };
 		67E955DF21F0D10700805123 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67E955DD21F0D10700805123 /* LaunchScreen.storyboard */; };
+		67FAC0EF2220B18B0060A476 /* IRUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FAC0EE2220B18B0060A476 /* IRUser.swift */; };
+		67FAC0F52220BDA10060A476 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FAC0F42220BDA10060A476 /* Keys.swift */; };
+		67FAC0F72220BFF70060A476 /* Extention+ Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FAC0F62220BFF70060A476 /* Extention+ Alert.swift */; };
 		7A6594CEAED4CED75A152074 /* Pods_ImageRecognition.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AB71127A40FD87CCC78A99F /* Pods_ImageRecognition.framework */; };
 /* End PBXBuildFile section */
 
@@ -66,6 +69,9 @@
 		67E955DB21F0D10600805123 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		67E955DE21F0D10700805123 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		67E955E021F0D10700805123 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		67FAC0EE2220B18B0060A476 /* IRUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRUser.swift; sourceTree = "<group>"; };
+		67FAC0F42220BDA10060A476 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
+		67FAC0F62220BFF70060A476 /* Extention+ Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extention+ Alert.swift"; sourceTree = "<group>"; };
 		6F7A6429F71F2C194D335764 /* Pods-ImageRecognition.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageRecognition.release.xcconfig"; path = "Target Support Files/Pods-ImageRecognition/Pods-ImageRecognition.release.xcconfig"; sourceTree = "<group>"; };
 		8AB71127A40FD87CCC78A99F /* Pods_ImageRecognition.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ImageRecognition.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -110,6 +116,7 @@
 				670B8496220CB82F00C8C0E5 /* UserDefaultKey.swift */,
 				67C66E422218EF6E00A55E3F /* ImageCache.swift */,
 				67C66E442218EFC300A55E3F /* NetworkHelper.swift */,
+				67FAC0F62220BFF70060A476 /* Extention+ Alert.swift */,
 			);
 			path = "Network Services";
 			sourceTree = "<group>";
@@ -143,11 +150,20 @@
 				67A6C1CD220A263E0063D519 /* ConfidenceData.swift */,
 				670B8490220BCE8A00C8C0E5 /* DetectFaceUrl.swift */,
 				670B8492220BD0BB00C8C0E5 /* DetectFaceResponse.swift */,
-				677E1443221BB0E100435303 /* ImageBox.swift */,
-				677E1445221BB27F00435303 /* ImageManager.swift */,
-				677E1447221BB5B600435303 /* DatabaseManager.swift */,
+				67FAC0EE2220B18B0060A476 /* IRUser.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		6761F36C221CFE540098A230 /* Firebase Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				677E1447221BB5B600435303 /* DatabaseManager.swift */,
+				677E1445221BB27F00435303 /* ImageManager.swift */,
+				677E1443221BB0E100435303 /* ImageBox.swift */,
+				67FAC0F42220BDA10060A476 /* Keys.swift */,
+			);
+			path = "Firebase Utilities";
 			sourceTree = "<group>";
 		};
 		67A6C1D8220A281C0063D519 /* Secret Key */ = {
@@ -182,13 +198,22 @@
 				67486EE221F1401D0005ACFF /* Support File */,
 				67486EE121F140130005ACFF /* Controllers */,
 				67486EE521F169FE0005ACFF /* Model */,
-				67E955D821F0D10500805123 /* Main.storyboard */,
+				6761F36C221CFE540098A230 /* Firebase Utilities */,
 				67579F6D2217B710008EA2BF /* GoogleService-Info.plist */,
 				67A6C1D8220A281C0063D519 /* Secret Key */,
 				67E955E021F0D10700805123 /* Info.plist */,
+				67FAC0FE22220DCD0060A476 /* View */,
 				6730FA3B21FA5ADE0033DB64 /* Network Services */,
 			);
 			path = ImageRecognition;
+			sourceTree = "<group>";
+		};
+		67FAC0FE22220DCD0060A476 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				67E955D821F0D10500805123 /* Main.storyboard */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -340,6 +365,9 @@
 				67C66E452218EFC300A55E3F /* NetworkHelper.swift in Sources */,
 				677E1448221BB5B600435303 /* DatabaseManager.swift in Sources */,
 				670B8491220BCE8A00C8C0E5 /* DetectFaceUrl.swift in Sources */,
+				67FAC0F72220BFF70060A476 /* Extention+ Alert.swift in Sources */,
+				67FAC0EF2220B18B0060A476 /* IRUser.swift in Sources */,
+				67FAC0F52220BDA10060A476 /* Keys.swift in Sources */,
 				67A6C1CE220A263E0063D519 /* ConfidenceData.swift in Sources */,
 				67E955D721F0D10500805123 /* ViewController.swift in Sources */,
 				67C66E432218EF6E00A55E3F /* ImageCache.swift in Sources */,
