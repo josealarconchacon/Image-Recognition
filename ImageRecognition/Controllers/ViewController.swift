@@ -7,33 +7,62 @@
 //
 
 import UIKit
+import Firebase
+
 
 class ViewController: UIViewController {
     @IBOutlet weak var createAccountButton: UIButton!
     @IBOutlet weak var signInButton: UIButton!
     @IBOutlet weak var textFieldEmail: UITextField!
     @IBOutlet weak var textFieldPassword: UITextField!
-    @IBOutlet weak var baseView: UIView!
+    @IBOutlet weak var imageView: UIImageView!
+    
     var create = String ()
-   
     
     override func viewDidLoad() {
         super.viewDidLoad()
         textFieldEmail.delegate = self
         textFieldPassword.delegate = self
+        setButton()
+        setTextField()
+        imageView.layer.borderWidth = 1
+        imageView.layer.masksToBounds = false
+        imageView.layer.borderColor = UIColor.lightGray.cgColor
+        imageView.layer.cornerRadius = imageView.frame.height/4
+        imageView.clipsToBounds = true
         textFieldEmail.addTarget(self, action: #selector(textFieldDropDown), for: .touchDown)
         if let userName = UserDefaults.standard.object(forKey: UserDefaultKey.userEmailKey) as? String {
             textFieldEmail.text = userName
         }
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         registerKeyboardNotification()
-        
     }
     @objc func textFieldDropDown() {
-        
+
     }
+    
+    func setButton() {
+        createAccountButton.clipsToBounds = true
+        createAccountButton.setTitleColor(.black, for: .normal)
+        createAccountButton.layer.cornerRadius = 30.0
+        createAccountButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        
+        signInButton.clipsToBounds = true
+        signInButton.setTitleColor(.black, for: .normal)
+        signInButton.layer.cornerRadius = 30.0
+        signInButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+    }
+    func setTextField() {
+        textFieldEmail.clipsToBounds = true
+        textFieldEmail.layer.cornerRadius = 30.0
+        
+        textFieldPassword.clipsToBounds = true
+        textFieldPassword.layer.cornerRadius = 30.0
+    }
+    
     private func registerKeyboardNotification(){
         NotificationCenter.default.addObserver(self, selector: #selector(willShowKeyboard(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(willHideKeyboard(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -53,7 +82,7 @@ class ViewController: UIViewController {
                 return
         }
 //        print(info)
-        baseView.transform = CGAffineTransform(translationX: 0, y: -keyboardFrame.height)
+//        baseView.transform = CGAffineTransform(translationX: 0, y: -keyboardFrame.height)
     }
     @objc private func willHideKeyboard(notification: Notification) {
 //         baseView.transform = CGAffineTransform.identity // to put the keyboard down
@@ -63,6 +92,9 @@ class ViewController: UIViewController {
         guard let destinationViewController = storyboard.instantiateViewController(withIdentifier: "account") as? CreateAccountViewController  else {return}
         destinationViewController.accountTo = create
         self.present(destinationViewController, animated: true, completion:  nil)
+        // new
+       
+       
     }
     @IBAction func signInButtonPress(_ sender: UIButton) {
         if let text = textFieldEmail.text {

@@ -8,11 +8,13 @@
 
 import Foundation
 import  Firebase
+import FirebaseAuth
+import FirebaseFirestore
 
 final class DatabaseManager {
     private init (){}
-    private static let firebaseDatabase = Firestore.firestore()
-    
+    public static let firebaseDatabase = Firestore.firestore()
+
     static func saveImage(fox: ImageBox) {
         firebaseDatabase.collection("imageBoxes").addDocument(data: ["fileName": fox.fileName])
     }
@@ -30,4 +32,3 @@ final class DatabaseManager {
         }
     }
 }
-
