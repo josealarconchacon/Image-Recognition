@@ -11,11 +11,14 @@ import Photos
 import Foundation
 import UserNotifications
 //import FirebaseAuth
-import FirebaseStorage
-import UIKit
+//import FirebaseStorage
+import Firebase
+import MobileCoreServices
+import MBCircularProgressBar
 
 
 class MatchingFacesViewController: UIViewController {    
+    @IBOutlet weak var progresiveView: MBCircularProgressBarView!
     @IBOutlet weak var uploadImage: UIImageView!
     @IBOutlet weak var matchingResultLabel: UILabel!
     @IBOutlet weak var uploadButton: UIButton!
@@ -32,6 +35,11 @@ class MatchingFacesViewController: UIViewController {
     var selectedImage = UIImage()
     var detect = [DetectFaceUrl]()
     
+//    override func viewDidAppear(_ animated: Bool) {
+//        UIView.animate(withDuration: 1.0) {
+//            self.progresiveView.value = 80
+//        }
+//    }
     override func viewDidLoad() {
         super.viewDidLoad()
         uploadImage.layer.borderWidth = 1
@@ -43,9 +51,10 @@ class MatchingFacesViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapGesture))
         uploadImage.addGestureRecognizer(tapGesture)
         uploadImage.isUserInteractionEnabled = true
-        imagePicker?.delegate=self
+        imagePicker?.delegate = self
         setupImagePickerController()
         setButton()
+        self.progresiveView.value = 0
         
         ImageCache.shared.fetchImageFromNetwork(urlString: faceIDtoSend1) { (error, image) in
             if let error = error {
@@ -74,31 +83,30 @@ class MatchingFacesViewController: UIViewController {
     
     @IBAction func uploadButton(_ sender: UIButton) {
         // image will be upload
+        UIView.animate(withDuration: 1.0) { self.progresiveView.value = 100 }
         var faceIdToSend = String()
-        FaceDetectAPIClient.fetchImageFaceUrl(urlInput: faceUrl!) { (data) in
-            faceIdToSend = data.faceId
-            print("DATA IS \(faceIdToSend)")
-        }
-        FindSimilarAPIClient.fetchImageFaceInfo(faceID: faceIDtoSend1)  { (response) in
-            //            faceIdToSend = data.faceId
-            print("Findsimilar data is \(response)")
-            let matchID = response.persistedFaceId
-            let confidence = response.confidence
-            print("match id is \(matchID)")
-            print("confidence is \(confidence)")
-        }
+//        FaceDetectAPIClient.fetchImageFaceUrl(urlInput: faceUrl!) { (data) in
+//            faceIdToSend = data.faceId
+//            print("DATA IS \(faceIdToSend)")
+//        }
+//        FindSimilarAPIClient.fetchImageFaceInfo(faceID: faceIDtoSend1)  { (response) in
+//            //            faceIdToSend = data.faceId
+//            print("Findsimilar data is \(response)")
+//            let matchID = response.persistedFaceId
+//            let confidence = response.confidence
+//            print("match id is \(matchID)")
+//            print("confidence is \(confidence)")
+//        }
         //Upload Image
         guard let image = uploadImage.image else { return }
         ImageManager.manager.uploadImage(image: image, fileName: "image")
-        
-        let imagePicker = UIImagePickerController()
-        imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
-        imagePicker.mediaTypes = [kCIAttributeTypeImage]
-        imagePicker.delegate = self
+//        
+//        let imagePicker = UIImagePickerController()
+//        imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
+//        imagePicker.mediaTypes = [kCIAttributeTypeImage]
+//        imagePicker.delegate = self
         
     }
-    
-    
     
     func present(){
         self.present(imagePicker, animated: true, completion: nil)
@@ -124,12 +132,11 @@ class MatchingFacesViewController: UIViewController {
         let camera = UIAlertAction(title: "Open Camera", style: .default) { (UIAlertAction) in
             print("Camera selected")
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) == true {
-                var date = NSDate()
-
-                self.imagePicker.mediaTypes = NSArray(objects: kCIAttributeTypeImage) as! [String]
                 self.showImagePickerController()
-                self.imagePicker.allowsEditing = true
-//                self.present()
+                self.imagePicker.allowsEditing = false
+                self.imagePicker.sourceType = .camera
+                self.imagePicker.mediaTypes = [kUTTypeImage as! String]
+                //                self.present()
             } else {
                 self.present(self.showAlert(Title: "Title", Message: "Photo Library is not available on this Device or accesibility has been revoked!"), animated: true, completion: nil)
             }
@@ -145,7 +152,7 @@ class MatchingFacesViewController: UIViewController {
     private func setupImagePickerController() {
         imagePicker = UIImagePickerController()
         self.imagePicker.sourceType = .camera
-        imagePicker.delegate = self 
+        imagePicker.delegate = self
     }
     private func showImagePickerController() {
         present(imagePicker,animated: true,completion:  nil)
@@ -165,5 +172,6 @@ extension MatchingFacesViewController: UIImagePickerControllerDelegate, UINaviga
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
+
 }
 

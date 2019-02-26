@@ -5,19 +5,19 @@
 //  Created by Jose Alarcon Chacon on 1/17/19.
 //  Copyright © 2019 Jose Alarcon Chacon. All rights reserved.
 //
-
+import Foundation
 import UIKit
 import Firebase
 
-
 class ViewController: UIViewController {
     @IBOutlet weak var createAccountButton: UIButton!
-    @IBOutlet weak var signInButton: UIButton!
+    @IBOutlet weak var continueButton: UIButton!
     @IBOutlet weak var textFieldEmail: UITextField!
     @IBOutlet weak var textFieldPassword: UITextField!
     @IBOutlet weak var imageView: UIImageView!
     
     var create = String ()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,11 +25,6 @@ class ViewController: UIViewController {
         textFieldPassword.delegate = self
         setButton()
         setTextField()
-        imageView.layer.borderWidth = 1
-        imageView.layer.masksToBounds = false
-        imageView.layer.borderColor = UIColor.lightGray.cgColor
-        imageView.layer.cornerRadius = imageView.frame.height/4
-        imageView.clipsToBounds = true
         textFieldEmail.addTarget(self, action: #selector(textFieldDropDown), for: .touchDown)
         if let userName = UserDefaults.standard.object(forKey: UserDefaultKey.userEmailKey) as? String {
             textFieldEmail.text = userName
@@ -43,24 +38,29 @@ class ViewController: UIViewController {
     @objc func textFieldDropDown() {
 
     }
-    
     func setButton() {
-        createAccountButton.clipsToBounds = true
-        createAccountButton.setTitleColor(.black, for: .normal)
-        createAccountButton.layer.cornerRadius = 30.0
-        createAccountButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        
-        signInButton.clipsToBounds = true
-        signInButton.setTitleColor(.black, for: .normal)
-        signInButton.layer.cornerRadius = 30.0
-        signInButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        continueButton.backgroundColor = UIColor.darkGray
+        continueButton.layer.cornerRadius = continueButton.frame.height / 2
+        continueButton.setTitleColor(.white, for: .normal)
+        continueButton.layer.shadowRadius = 2
+        continueButton.layer.shadowOpacity = 0.5
+        continueButton.layer.shadowOffset = CGSize(width: 0, height: 0)
     }
+
     func setTextField() {
         textFieldEmail.clipsToBounds = true
-        textFieldEmail.layer.cornerRadius = 30.0
+        textFieldEmail.layer.cornerRadius = 10.0
+        textFieldEmail.clipsToBounds = true
+        textFieldEmail.layer.cornerRadius = 10.0
         
         textFieldPassword.clipsToBounds = true
-        textFieldPassword.layer.cornerRadius = 30.0
+        textFieldPassword.layer.cornerRadius = 10.0
+        textFieldPassword.clipsToBounds = true
+        textFieldPassword.layer.cornerRadius = 10.0
+        
+    }
+    @IBAction func backButton(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
     }
     
     private func registerKeyboardNotification(){
@@ -81,22 +81,20 @@ class ViewController: UIViewController {
                 print("User info is nil")
                 return
         }
-//        print(info)
-//        baseView.transform = CGAffineTransform(translationX: 0, y: -keyboardFrame.height)
+
     }
     @objc private func willHideKeyboard(notification: Notification) {
 //         baseView.transform = CGAffineTransform.identity // to put the keyboard down
     }
+   
     @IBAction func createAccountPress(_ sender: UIButton) {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         guard let destinationViewController = storyboard.instantiateViewController(withIdentifier: "account") as? CreateAccountViewController  else {return}
         destinationViewController.accountTo = create
         self.present(destinationViewController, animated: true, completion:  nil)
-        // new
-       
-       
     }
-    @IBAction func signInButtonPress(_ sender: UIButton) {
+    
+    @IBAction func continueButtonPress(_ sender: UIButton) {
         if let text = textFieldEmail.text {
             UserDefaults.standard.set(text, forKey: UserDefaultKey.userEmailKey)
         }
