@@ -11,5 +11,7 @@ pod 'Firebase/Storage'
 pod 'Firebase/Auth'
 pod 'Firebase/Firestore'
 pod "MBCircularProgressBar"
+pod 'FirebaseUI'
+ 
 
 end

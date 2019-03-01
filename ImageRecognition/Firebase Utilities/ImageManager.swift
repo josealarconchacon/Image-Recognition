@@ -28,6 +28,9 @@ final class ImageManager {
     // Uploading Image
     func uploadImage(image: UIImage, fileName: String) {
         let imageRef = imageStorageRef.child(fileName)
+        let metaData = StorageMetadata()
+        metaData.cacheControl = "public,max-age=300"
+        metaData.contentType = "image/png"
         guard let imageData = image.jpegData(compressionQuality: 1.0) else { return }
         imageRef.putData(imageData, metadata: nil) { (metadata, error) in
             if let error = error {
@@ -37,6 +40,7 @@ final class ImageManager {
                 let imageBox = ImageBox(fileName: fileName)
                 DatabaseManager.saveImage(fox: imageBox)
                 print(metadata.size)
+            
             }
         }
     }
@@ -45,6 +49,7 @@ final class ImageManager {
         refImage.downloadURL { (url, error) in
             if let error = error {
                 print(error)
+                print("Url image is \(url?.absoluteURL)")
             }
             if let url = url {
                 ImageCache.shared.fetchImageFromNetwork(urlString: url.absoluteString, completion: { (appError, image) in
@@ -56,7 +61,13 @@ final class ImageManager {
                         self.delegate?.didFetchImage(self, imageURL: url)
                     }
                 })
+            
             }
+            let downloadTask = self.imageRef.child("images/mountains.jpg").write(toFile: url!)
+            downloadTask.pause()
+            downloadTask.resume()
+            downloadTask.cancel()
+
         }
     }
 }

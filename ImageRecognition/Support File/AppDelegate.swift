@@ -8,6 +8,8 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,13 +18,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
 //    var usersession: UserSession!
 //    var imageManager: ImageManager!
-
+    
+   
+    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
+        window = UIWindow(frame: UIScreen.main.bounds)
         
-        
+        if let _ = Auth.auth().currentUser {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let matchTabBar = storyboard.instantiateViewController(withIdentifier: "MatchTabViewController") as? MatchTabViewController
+            window?.rootViewController = matchTabBar
+        }
+
+        else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let loginViewController = storyboard.instantiateViewController(withIdentifier: "MainePageViewController") as! MainePageViewController
+            window?.rootViewController = loginViewController
+        }
+
+        window?.makeKeyAndVisible()
+      
         return true
     }
 
@@ -48,3 +66,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 }
+

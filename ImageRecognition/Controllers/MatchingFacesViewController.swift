@@ -17,6 +17,7 @@ import MobileCoreServices
 import MBCircularProgressBar
 
 
+
 class MatchingFacesViewController: UIViewController {    
     @IBOutlet weak var progresiveView: MBCircularProgressBarView!
     @IBOutlet weak var uploadImage: UIImageView!
@@ -24,28 +25,20 @@ class MatchingFacesViewController: UIViewController {
     @IBOutlet weak var uploadButton: UIButton!
     let uploadImageRequest = DataPersistenceManager()
     var accountToT = String()
+
     
-    
-    let faceIDtoSend1 = "aae98811-f42c-4c83-ae52-4b687bac1e4b"
+    let faceIDtoSend1 = "5b2e3223-7683-4dd3-8a90-a1b84fb2a142"
 //    let urlToSend = URL(string: "https://resources.stuff.co.nz/content/dam/images/1/m/u/4/l/b/image.related.StuffLandscapeSixteenByNine.710x400.1msgyb.png/1510688122869.jpg")
     let faceUrl = URL(string: "https://1.bp.blogspot.com/-SkV_JgzGtoc/VrL2rU1pmNI/AAAAAAABVCQ/jRza4HBjJDw/s1600/Kids%2Bheadshots_los%2Bangeles008Lane_016%2Bweb%2Bfb.jpg")
     
-//    private var imagePickerController = UIImagePickerController()
     var imagePicker = UIImagePickerController()
     var selectedImage = UIImage()
     var detect = [DetectFaceUrl]()
     
-//    override func viewDidAppear(_ animated: Bool) {
-//        UIView.animate(withDuration: 1.0) {
-//            self.progresiveView.value = 80
-//        }
-//    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        uploadImage.layer.borderWidth = 1
-        uploadImage.layer.masksToBounds = false
-        uploadImage.layer.borderColor = UIColor.lightGray.cgColor
-        uploadImage.layer.cornerRadius = uploadImage.frame.height/4
+        uploadImage.layer.cornerRadius = uploadImage.frame.height / 2
         uploadImage.clipsToBounds = true
         let imagePicker:UIImagePickerController?=UIImagePickerController()
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapGesture))
@@ -55,6 +48,7 @@ class MatchingFacesViewController: UIViewController {
         setupImagePickerController()
         setButton()
         self.progresiveView.value = 0
+        let tabBar = UITabBarItem(title: nil, image: UIImage(named: "match"), tag: 0)
         
         ImageCache.shared.fetchImageFromNetwork(urlString: faceIDtoSend1) { (error, image) in
             if let error = error {
@@ -79,33 +73,28 @@ class MatchingFacesViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+      
     }
     
     @IBAction func uploadButton(_ sender: UIButton) {
         // image will be upload
-        UIView.animate(withDuration: 1.0) { self.progresiveView.value = 100 }
+        UIView.animate(withDuration: 1.0) { self.progresiveView.value = 100}
         var faceIdToSend = String()
-//        FaceDetectAPIClient.fetchImageFaceUrl(urlInput: faceUrl!) { (data) in
-//            faceIdToSend = data.faceId
-//            print("DATA IS \(faceIdToSend)")
-//        }
-//        FindSimilarAPIClient.fetchImageFaceInfo(faceID: faceIDtoSend1)  { (response) in
-//            //            faceIdToSend = data.faceId
-//            print("Findsimilar data is \(response)")
-//            let matchID = response.persistedFaceId
-//            let confidence = response.confidence
-//            print("match id is \(matchID)")
-//            print("confidence is \(confidence)")
-//        }
+        FaceDetectAPIClient.fetchImageFaceUrl(urlInput: faceUrl!) { (data) in
+            faceIdToSend = data.faceId
+            print("DATA IS \(faceIdToSend)")
+        }
+        FindSimilarAPIClient.fetchImageFaceInfo(faceID: faceIDtoSend1)  { (response) in
+            //            faceIdToSend = data.faceId
+            print("Findsimilar data is \(response)")
+            let matchID = response.persistedFaceId
+            let confidence = response.confidence
+            print("match id is \(matchID)")
+            print("confidence is \(confidence)")
+        }
         //Upload Image
         guard let image = uploadImage.image else { return }
         ImageManager.manager.uploadImage(image: image, fileName: "image")
-//        
-//        let imagePicker = UIImagePickerController()
-//        imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
-//        imagePicker.mediaTypes = [kCIAttributeTypeImage]
-//        imagePicker.delegate = self
-        
     }
     
     func present(){
