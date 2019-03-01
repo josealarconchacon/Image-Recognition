@@ -20,6 +20,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
     
     var accountTo = String()
     var issigIn: Bool = true
+     let userDefault = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +31,25 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         imageView.clipsToBounds = true
         setTextFiel()
         setButton()
-        handSignUo()
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        let emailImage = UIImage(named: "email-1")
+        leftImageTextFiel(textField: emailTextField, image: emailImage!)
+        let passwordlImage = UIImage(named: "lock-1")
+        leftImagePassTextFiel(textField: passwordTextField, image: passwordlImage!)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+//        registerKeyboardNotification()
+        if userDefault.bool(forKey: "usersignedin") {
+            let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+            guard let destinationWelcomeViewController = storyboard.instantiateViewController(withIdentifier: "account1") as? WelcomeViewController else {return}
+            destinationWelcomeViewController.accountToT = accountTo
+            self.present(destinationWelcomeViewController, animated: true, completion:  nil)
+            emailTextField.resignFirstResponder()
+            passwordTextField.resignFirstResponder()
+        }
     }
     func setTextFiel() {
         emailTextField.clipsToBounds = true
@@ -46,80 +65,65 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         create.layer.shadowOpacity = 0.5
         create.layer.shadowOffset = CGSize(width: 0, height: 0)
     }
-
-     func handSignUo() {
-        guard let email = emailTextField.text else {return}
-        guard let password = passwordTextField.text else {return}
-
-        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
-            if error == nil && user == user {
-                print("User was created!!!")
+    
+    func leftImageTextFiel(textField: UITextField, image img: UIImage) {
+        let imageView = UIImageView(frame: CGRect(x: 0.0, y: 0.0, width: img.size.width, height: img.size.height))
+        imageView.image = img
+        emailTextField.leftView = imageView
+        emailTextField.leftViewMode = .always
+    }
+    func leftImagePassTextFiel(textField: UITextField, image img: UIImage) {
+        let imageView = UIImageView(frame: CGRect(x: 0.0, y: 0.0, width: img.size.width, height: img.size.height))
+        imageView.image = img
+        passwordTextField.leftView = imageView
+        passwordTextField.leftViewMode = .always
+    }
+    
+    func createUser(email: String, password: String) { // new
+        Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
+            if error == nil {
+                // user create
+                print("User Created")
             } else {
-                print("Error is: \(error?.localizedDescription)")
+                self.showAlert(title: nil, message: "password should be 6 character long", style: .alert, handler: { (action) in })
+                let _ = UIAlertAction(title: "OK", style: .default, handler: { (action) in })
+                print(error!.localizedDescription)
             }
         }
-        issigIn = !issigIn
-        if issigIn {
-            signInLabel.text = "Sig In"
-            create.setTitle("Sign In", for: .normal)
-        } else {
-            signInLabel.text = "Sig Up"
-            create.setTitle("Sign Up", for: .normal)
+    }
+    
+    private func registerKeyboardNotification(){
+        NotificationCenter.default.addObserver(self, selector: #selector(willShowKeyboard(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(willHideKeyboard(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    private func unregisterKeyboardNotification() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        unregisterKeyboardNotification()
+    }
+    @objc private func willShowKeyboard(notification: Notification) {
+        guard let info = notification.userInfo,
+            let keyboardFrame = info["UIKeyboardCenterEndUserInfoKey"] as? CGRect else {
+                print("User info is nil")
+                return
         }
     }
+    @objc private func willHideKeyboard(notification: Notification) {
+//                 baseView.transform = CGAffineTransform.identity // to put the keyboard down
+    }
+    
     @IBAction func backButton(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
     @IBAction func createButton(_ sender: UIButton) {
-        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-        guard let destinationCreateVC = storyboard.instantiateViewController(withIdentifier: "account1") as? WelcomeViewController else {return}
-        destinationCreateVC.accountToT = accountTo
-        self.present(destinationCreateVC, animated: true, completion: nil)
-        emailTextField.resignFirstResponder()
-        passwordTextField.resignFirstResponder()
-        
-        if let email = emailTextField.text, let password = passwordTextField.text {
-            if issigIn {
-                Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
-                    if let user = user {
-                         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-                        guard let destinationCreateVC = storyboard.instantiateViewController(withIdentifier: "account1") as? WelcomeViewController else {return}
-                        destinationCreateVC.accountToT = self.accountTo
-                        self.present(destinationCreateVC, animated: true, completion: nil)
-                    }
-                    else {
-                        
-                    }
-                }
-            } else {
-                Auth.auth().createUser(withEmail: email, password: password) { (user, password) in
-                    if let user = user {
-//                        self.performSegue(withIdentifier: "account1", sender: self)
-                        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-                        guard let destinationCreateVC = storyboard.instantiateViewController(withIdentifier: "account1") as? WelcomeViewController else {return}
-                        destinationCreateVC.accountToT = self.accountTo
-                        self.present(destinationCreateVC, animated: true, completion: nil)
-                    }
-                    else {
-                        
-                    }
-                }
-            }
-        }
+        createUser(email: emailTextField.text!, password: passwordTextField.text!)
+        presentedViewController?.performSegue(withIdentifier: "account1", sender: self)
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        switch textField {
-        case emailTextField:
-            emailTextField.resignFirstResponder()
-            emailTextField.becomeFirstResponder()
-        case passwordTextField:
-            handSignUo()
-//            passwordTextField.resignFirstResponder()
-//            passwordTextField.becomeFirstResponder()
-        default:
-            break
-        }
         textField.resignFirstResponder()
         return true
     }

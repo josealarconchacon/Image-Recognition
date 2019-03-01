@@ -7,17 +7,21 @@
 //
 
 import UIKit
+import Firebase
 
 class MainePageViewController: UIViewController {
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var logInButton: UIButton!
     @IBOutlet weak var signUpButton: UIButton!
+    @IBOutlet weak var backgroundImageView: UIImageView!
     
     var sigIn = String ()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setButton()
+       
     }
     
     func setButton() {

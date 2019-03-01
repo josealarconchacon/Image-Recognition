@@ -8,16 +8,17 @@
 import Foundation
 import UIKit
 import Firebase
+import FirebaseAuth
 
 class ViewController: UIViewController {
-    @IBOutlet weak var createAccountButton: UIButton!
+ 
     @IBOutlet weak var continueButton: UIButton!
     @IBOutlet weak var textFieldEmail: UITextField!
     @IBOutlet weak var textFieldPassword: UITextField!
-    @IBOutlet weak var imageView: UIImageView!
-    
+
+    var imagePicker: UIImagePickerController!
     var create = String ()
-    
+    let userDefault = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +26,12 @@ class ViewController: UIViewController {
         textFieldPassword.delegate = self
         setButton()
         setTextField()
-        textFieldEmail.addTarget(self, action: #selector(textFieldDropDown), for: .touchDown)
+        let emailImage = UIImage(named: "email-1")
+        leftImageTextFiel(textField: textFieldEmail, image: emailImage!)
+        let passwordlImage = UIImage(named: "lock-1")
+        leftImagePassTextFiel(textField: textFieldPassword, image: passwordlImage!)
+        
+//        textFieldEmail.addTarget(self, action: #selector(textFieldDropDown), for: .touchDown)
         if let userName = UserDefaults.standard.object(forKey: UserDefaultKey.userEmailKey) as? String {
             textFieldEmail.text = userName
         }
@@ -34,6 +40,14 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         registerKeyboardNotification()
+        if userDefault.bool(forKey: "usersignedin") {
+            let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+            guard let destinationWelcomeViewController = storyboard.instantiateViewController(withIdentifier: "account1") as? WelcomeViewController else {return}
+            destinationWelcomeViewController.accountToT = create
+            self.present(destinationWelcomeViewController, animated: true, completion:  nil)
+            textFieldEmail.resignFirstResponder()
+            textFieldPassword.resignFirstResponder()
+        }
     }
     @objc func textFieldDropDown() {
 
@@ -52,12 +66,46 @@ class ViewController: UIViewController {
         textFieldEmail.layer.cornerRadius = 10.0
         textFieldEmail.clipsToBounds = true
         textFieldEmail.layer.cornerRadius = 10.0
-        
         textFieldPassword.clipsToBounds = true
         textFieldPassword.layer.cornerRadius = 10.0
         textFieldPassword.clipsToBounds = true
         textFieldPassword.layer.cornerRadius = 10.0
-        
+    }
+    func leftImageTextFiel(textField: UITextField, image img: UIImage) {
+        let imageView = UIImageView(frame: CGRect(x: 0.0, y: 0.0, width: img.size.width, height: img.size.height))
+        imageView.image = img
+        textFieldEmail.leftView = imageView
+        textFieldEmail.leftViewMode = .always
+    }
+    func leftImagePassTextFiel(textField: UITextField, image img: UIImage) {
+        let imageView = UIImageView(frame: CGRect(x: 0.0, y: 0.0, width: img.size.width, height: img.size.height))
+        imageView.image = img
+        textFieldPassword.leftView = imageView
+        textFieldPassword.leftViewMode = .always
+    }
+
+    func signInUser(email: String, password: String) {
+        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+            if error == nil {
+                // sign in
+                print("User Sign In")
+                self.userDefault.set(true, forKey: "usersignedin")
+                self.userDefault.synchronize()
+                
+                let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+                guard let destinationWelcomeViewController = storyboard.instantiateViewController(withIdentifier: "MatchTabViewController") as? MatchTabViewController else {return}
+                destinationWelcomeViewController.match = self.create
+                self.present(destinationWelcomeViewController, animated: true, completion:  nil)
+                
+            } else if error?._code == AuthErrorCode.userNotFound.rawValue{
+//                self.createUser(email: email, password: password)
+            } else {
+                print("Error is: \(error!.localizedDescription)")
+                self.showAlert(title: "Invalid email or password", message: "Please try again", style: .alert, handler: { (action) in })
+                let _ = UIAlertAction(title: "OK", style: .default, handler: { (UIAlertAction) in
+                })
+            }
+        }
     }
     @IBAction func backButton(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
@@ -87,27 +135,12 @@ class ViewController: UIViewController {
 //         baseView.transform = CGAffineTransform.identity // to put the keyboard down
     }
    
-    @IBAction func createAccountPress(_ sender: UIButton) {
-        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-        guard let destinationViewController = storyboard.instantiateViewController(withIdentifier: "account") as? CreateAccountViewController  else {return}
-        destinationViewController.accountTo = create
-        self.present(destinationViewController, animated: true, completion:  nil)
-    }
-    
     @IBAction func continueButtonPress(_ sender: UIButton) {
-        if let text = textFieldEmail.text {
-            UserDefaults.standard.set(text, forKey: UserDefaultKey.userEmailKey)
+    
+          signInUser(email: textFieldEmail.text!, password: textFieldPassword.text!)
         }
-            
-        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-        guard let destinationWelcomeViewController = storyboard.instantiateViewController(withIdentifier: "account1") as? WelcomeViewController else {return}
-        destinationWelcomeViewController.accountToT = create
-        self.present(destinationWelcomeViewController, animated: true, completion:  nil)
-        textFieldEmail.resignFirstResponder()
-        textFieldPassword.resignFirstResponder()
-        
     }
-}
+
 extension ViewController: UITextFieldDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
