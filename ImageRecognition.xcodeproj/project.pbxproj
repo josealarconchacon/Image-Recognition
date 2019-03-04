@@ -16,6 +16,9 @@
 		670B84D5220CDC3B00C8C0E5 /* RequestFaceAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670B84D4220CDC3B00C8C0E5 /* RequestFaceAPIClient.swift */; };
 		670B84D7220CDCF200C8C0E5 /* RequestFace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670B84D6220CDCF200C8C0E5 /* RequestFace.swift */; };
 		6730F9F821FA3FEF0033DB64 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6730F9F721FA3FEF0033DB64 /* AppError.swift */; };
+		67468B43222CC70C00EBBD7E /* PotentialMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67468B42222CC70C00EBBD7E /* PotentialMatch.swift */; };
+		67468B45222CC9B900EBBD7E /* AdditionalInformationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67468B44222CC9B900EBBD7E /* AdditionalInformationController.swift */; };
+		67468B47222D765F00EBBD7E /* PotentialInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67468B46222D765F00EBBD7E /* PotentialInfo.swift */; };
 		67486EE421F140BF0005ACFF /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67486EE321F140BF0005ACFF /* CreateAccountViewController.swift */; };
 		67486EE921F16B1F0005ACFF /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67486EE821F16B1F0005ACFF /* WelcomeViewController.swift */; };
 		67579F6E2217B710008EA2BF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 67579F6D2217B710008EA2BF /* GoogleService-Info.plist */; };
@@ -57,6 +60,9 @@
 		670B84D4220CDC3B00C8C0E5 /* RequestFaceAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestFaceAPIClient.swift; sourceTree = "<group>"; };
 		670B84D6220CDCF200C8C0E5 /* RequestFace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestFace.swift; sourceTree = "<group>"; };
 		6730F9F721FA3FEF0033DB64 /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
+		67468B42222CC70C00EBBD7E /* PotentialMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PotentialMatch.swift; sourceTree = "<group>"; };
+		67468B44222CC9B900EBBD7E /* AdditionalInformationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalInformationController.swift; sourceTree = "<group>"; };
+		67468B46222D765F00EBBD7E /* PotentialInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PotentialInfo.swift; sourceTree = "<group>"; };
 		67486EE321F140BF0005ACFF /* CreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
 		67486EE821F16B1F0005ACFF /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		67579F6D2217B710008EA2BF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -145,6 +151,7 @@
 				670A670B2208D95C00E04A51 /* MatchingFacesViewController.swift */,
 				67FAC1402225EF920060A476 /* UserProfileViewController.swift */,
 				67FAC144222605380060A476 /* MatchTabViewController.swift */,
+				67468B44222CC9B900EBBD7E /* AdditionalInformationController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -169,6 +176,8 @@
 				670B8492220BD0BB00C8C0E5 /* DetectFaceResponse.swift */,
 				67FAC0EE2220B18B0060A476 /* IRUser.swift */,
 				67FAC13C222491FC0060A476 /* UserSession.swift */,
+				67468B42222CC70C00EBBD7E /* PotentialMatch.swift */,
+				67468B46222D765F00EBBD7E /* PotentialInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -432,6 +441,7 @@
 				670A670C2208D95C00E04A51 /* MatchingFacesViewController.swift in Sources */,
 				67FAC1412225EF920060A476 /* UserProfileViewController.swift in Sources */,
 				6730F9F821FA3FEF0033DB64 /* AppError.swift in Sources */,
+				67468B45222CC9B900EBBD7E /* AdditionalInformationController.swift in Sources */,
 				67FAC13D222491FC0060A476 /* UserSession.swift in Sources */,
 				67486EE921F16B1F0005ACFF /* WelcomeViewController.swift in Sources */,
 				67A6C1D2220A26B40063D519 /* FindSimilarAPIClient.swift in Sources */,
@@ -453,11 +463,13 @@
 				67A6C1CE220A263E0063D519 /* ConfidenceData.swift in Sources */,
 				67E955D721F0D10500805123 /* ViewController.swift in Sources */,
 				67FAC145222605380060A476 /* MatchTabViewController.swift in Sources */,
+				67468B43222CC70C00EBBD7E /* PotentialMatch.swift in Sources */,
 				67C66E432218EF6E00A55E3F /* ImageCache.swift in Sources */,
 				670B8497220CB82F00C8C0E5 /* UserDefaultKey.swift in Sources */,
 				67A6C1D0220A265C0063D519 /* FaceInfo.swift in Sources */,
 				67E955D521F0D10500805123 /* AppDelegate.swift in Sources */,
 				670B84D7220CDCF200C8C0E5 /* RequestFace.swift in Sources */,
+				67468B47222D765F00EBBD7E /* PotentialInfo.swift in Sources */,
 				670B848D220B80B500C8C0E5 /* DataPersistenceManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
