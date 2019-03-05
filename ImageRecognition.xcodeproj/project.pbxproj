@@ -16,7 +16,7 @@
 		670B84D5220CDC3B00C8C0E5 /* RequestFaceAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670B84D4220CDC3B00C8C0E5 /* RequestFaceAPIClient.swift */; };
 		670B84D7220CDCF200C8C0E5 /* RequestFace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 670B84D6220CDCF200C8C0E5 /* RequestFace.swift */; };
 		6730F9F821FA3FEF0033DB64 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6730F9F721FA3FEF0033DB64 /* AppError.swift */; };
-		67468B45222CC9B900EBBD7E /* AdditionalInformationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67468B44222CC9B900EBBD7E /* AdditionalInformationController.swift */; };
+		67468B45222CC9B900EBBD7E /* AdditionalInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67468B44222CC9B900EBBD7E /* AdditionalInformation.swift */; };
 		67486EE421F140BF0005ACFF /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67486EE321F140BF0005ACFF /* CreateAccountViewController.swift */; };
 		67486EE921F16B1F0005ACFF /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67486EE821F16B1F0005ACFF /* WelcomeViewController.swift */; };
 		67579F6E2217B710008EA2BF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 67579F6D2217B710008EA2BF /* GoogleService-Info.plist */; };
@@ -34,7 +34,8 @@
 		67C66E452218EFC300A55E3F /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67C66E442218EFC300A55E3F /* NetworkHelper.swift */; };
 		67DD9076222DCCE900E819B4 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DD9075222DCCE900E819B4 /* UserModel.swift */; };
 		67DD9078222DD13000E819B4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DD9077222DD13000E819B4 /* User.swift */; };
-		67DD907A222DD3EE00E819B4 /* AddUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DD9079222DD3EE00E819B4 /* AddUserViewController.swift */; };
+		67DD907A222DD3EE00E819B4 /* PotentialMatches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DD9079222DD3EE00E819B4 /* PotentialMatches.swift */; };
+		67DD907F222E212600E819B4 /* PotentialMatchDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DD907E222E212600E819B4 /* PotentialMatchDetail.swift */; };
 		67E955D521F0D10500805123 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E955D421F0D10500805123 /* AppDelegate.swift */; };
 		67E955D721F0D10500805123 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E955D621F0D10500805123 /* ViewController.swift */; };
 		67E955DA21F0D10500805123 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 67E955D821F0D10500805123 /* Main.storyboard */; };
@@ -60,7 +61,7 @@
 		670B84D4220CDC3B00C8C0E5 /* RequestFaceAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestFaceAPIClient.swift; sourceTree = "<group>"; };
 		670B84D6220CDCF200C8C0E5 /* RequestFace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestFace.swift; sourceTree = "<group>"; };
 		6730F9F721FA3FEF0033DB64 /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
-		67468B44222CC9B900EBBD7E /* AdditionalInformationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalInformationController.swift; sourceTree = "<group>"; };
+		67468B44222CC9B900EBBD7E /* AdditionalInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalInformation.swift; sourceTree = "<group>"; };
 		67486EE321F140BF0005ACFF /* CreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
 		67486EE821F16B1F0005ACFF /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		67579F6D2217B710008EA2BF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -78,7 +79,8 @@
 		67C66E442218EFC300A55E3F /* NetworkHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 		67DD9075222DCCE900E819B4 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		67DD9077222DD13000E819B4 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		67DD9079222DD3EE00E819B4 /* AddUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserViewController.swift; sourceTree = "<group>"; };
+		67DD9079222DD3EE00E819B4 /* PotentialMatches.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PotentialMatches.swift; sourceTree = "<group>"; };
+		67DD907E222E212600E819B4 /* PotentialMatchDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PotentialMatchDetail.swift; sourceTree = "<group>"; };
 		67E955D121F0D10500805123 /* ImageRecognition.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageRecognition.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67E955D421F0D10500805123 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		67E955D621F0D10500805123 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -151,8 +153,9 @@
 				670A670B2208D95C00E04A51 /* MatchingFacesViewController.swift */,
 				67FAC1402225EF920060A476 /* UserProfileViewController.swift */,
 				67FAC144222605380060A476 /* MatchTabViewController.swift */,
-				67468B44222CC9B900EBBD7E /* AdditionalInformationController.swift */,
-				67DD9079222DD3EE00E819B4 /* AddUserViewController.swift */,
+				67468B44222CC9B900EBBD7E /* AdditionalInformation.swift */,
+				67DD9079222DD3EE00E819B4 /* PotentialMatches.swift */,
+				67DD907E222E212600E819B4 /* PotentialMatchDetail.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -441,7 +444,7 @@
 				670A670C2208D95C00E04A51 /* MatchingFacesViewController.swift in Sources */,
 				67FAC1412225EF920060A476 /* UserProfileViewController.swift in Sources */,
 				6730F9F821FA3FEF0033DB64 /* AppError.swift in Sources */,
-				67468B45222CC9B900EBBD7E /* AdditionalInformationController.swift in Sources */,
+				67468B45222CC9B900EBBD7E /* AdditionalInformation.swift in Sources */,
 				67486EE921F16B1F0005ACFF /* WelcomeViewController.swift in Sources */,
 				67A6C1D2220A26B40063D519 /* FindSimilarAPIClient.swift in Sources */,
 				677F6AC62227714300DD1CC0 /* LaunchScreenViewController.swift in Sources */,
@@ -455,12 +458,13 @@
 				67FAC138222489C80060A476 /* MainePageViewController.swift in Sources */,
 				67C66E452218EFC300A55E3F /* NetworkHelper.swift in Sources */,
 				677E1448221BB5B600435303 /* DatabaseManager.swift in Sources */,
+				67DD907F222E212600E819B4 /* PotentialMatchDetail.swift in Sources */,
 				670B8491220BCE8A00C8C0E5 /* DetectFaceUrl.swift in Sources */,
 				67FAC0F72220BFF70060A476 /* Extention+ Alert.swift in Sources */,
 				67FAC0EF2220B18B0060A476 /* IRUser.swift in Sources */,
 				67FAC0F52220BDA10060A476 /* Keys.swift in Sources */,
 				67A6C1CE220A263E0063D519 /* ConfidenceData.swift in Sources */,
-				67DD907A222DD3EE00E819B4 /* AddUserViewController.swift in Sources */,
+				67DD907A222DD3EE00E819B4 /* PotentialMatches.swift in Sources */,
 				67E955D721F0D10500805123 /* ViewController.swift in Sources */,
 				67FAC145222605380060A476 /* MatchTabViewController.swift in Sources */,
 				67C66E432218EF6E00A55E3F /* ImageCache.swift in Sources */,
