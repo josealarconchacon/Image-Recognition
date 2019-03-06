@@ -13,6 +13,7 @@ pod 'Firebase/Firestore'
 pod "MBCircularProgressBar"
 pod 'FirebaseUI'
 pod 'Firebase/Database'
+pod 'Kingfisher' 
  
 
 end
