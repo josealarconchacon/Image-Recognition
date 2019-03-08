@@ -8,7 +8,11 @@
 
 import Foundation
 
+
+
 final class FaceDetectAPIClient {
+  
+    
     static func fetchImageFaceUrl(urlInput: URL, completionHandler: @escaping ((DetectFaceResponse) -> Void)) {
         let endpointURLString = "https://eastus.api.cognitive.microsoft.com/face/v1.0/detect?returnFaceId=true&returnFaceLandmarks=false"
         guard let url = URL(string: endpointURLString) else {
@@ -45,5 +49,6 @@ final class FaceDetectAPIClient {
         }
         task.resume()
     }
+    
 }
 

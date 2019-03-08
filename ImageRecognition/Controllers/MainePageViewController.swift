@@ -16,12 +16,9 @@ class MainePageViewController: UIViewController {
     @IBOutlet weak var backgroundImageView: UIImageView!
     
     var sigIn = String ()
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setButton()
-       
     }
     
     func setButton() {
@@ -46,6 +43,7 @@ class MainePageViewController: UIViewController {
         destination.create = sigIn
         self.present(destination, animated: true, completion:  nil)
     }
+    
     @IBAction func signUp(_ sender: UIButton) {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         guard let destination = storyboard.instantiateViewController(withIdentifier: "account") as?  CreateAccountViewController else { return}

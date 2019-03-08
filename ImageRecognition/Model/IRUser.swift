@@ -11,7 +11,7 @@ import Foundation
 struct IRUser {
     let username: String?
     let imageURL: String?
-    
+
     init(dict: [String: Any]) {
         self.username = dict["username"] as? String ?? "no username"
          self.imageURL = dict["imageURL"] as? String ?? "no imageURL"

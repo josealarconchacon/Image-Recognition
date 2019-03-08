@@ -31,4 +31,18 @@ final class DatabaseManager {
             }
         }
     }
+    //
+    static func updateImageURL(photoURL: URL?) {
+        guard let user = Auth.auth().currentUser else {
+            return
+        }
+        guard let photoURL = photoURL else {return}
+        DatabaseManager.firebaseDatabase.collection("users").document(user.uid).updateData(["imageURL": photoURL.absoluteString]) { (error) in
+            if let error = error {
+                print(error)
+            }
+        }
+    }
 }
+
+

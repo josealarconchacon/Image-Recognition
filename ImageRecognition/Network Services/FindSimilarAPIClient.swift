@@ -8,7 +8,11 @@
 
 import Foundation
 
+
+
 final class FindSimilarAPIClient {
+   
+    
     static func fetchImageFaceInfo(faceID: String, completionHandler: @escaping ((ConfidenceData) -> Void)) {
         let endpointURLString = "https://eastus.api.cognitive.microsoft.com/face/v1.0/findsimilars"
         guard let url = URL(string: endpointURLString) else {

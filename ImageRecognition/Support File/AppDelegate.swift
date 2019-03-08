@@ -15,19 +15,15 @@ import FirebaseAuth
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    
-//    var usersession: UserSession!
-//    var imageManager: ImageManager!
-    
-   
-    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
+
+        
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        if let _ = Auth.auth().currentUser {
+          if let _ = Auth.auth().currentUser {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let matchTabBar = storyboard.instantiateViewController(withIdentifier: "MatchTabViewController") as? MatchTabViewController
             window?.rootViewController = matchTabBar
