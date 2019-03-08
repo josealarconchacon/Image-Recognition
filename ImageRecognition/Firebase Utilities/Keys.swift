@@ -10,4 +10,5 @@ import Foundation
 
 struct Keys {
     static let ImagesKey = "images"
+    static let UsersKey = "users"
 }

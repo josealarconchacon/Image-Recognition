@@ -12,9 +12,9 @@ class LaunchScreenViewController: UIViewController {
     @IBOutlet fileprivate weak var launchScreen: UILabel!
     
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        UIView.animate(withDuration: 5.0, animations: {
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UIView.animate(withDuration: 2.0, animations: {
             self.launchScreen.transform = CGAffineTransform(translationX: 0, y: self.view.bounds.size.height)
             self.view.backgroundColor = UIColor.white
         }) { (success) in

@@ -8,5 +8,5 @@
 
 import Foundation
 struct RequestFace: Codable {
-    let persistedFaceId: String
+    let persistedFaceId: String?
 }
