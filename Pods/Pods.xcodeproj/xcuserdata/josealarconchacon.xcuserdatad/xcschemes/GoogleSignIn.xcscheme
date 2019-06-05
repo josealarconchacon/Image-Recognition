@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4DA8D48788EBD3E72E9E8FA2D8804E1F"
+               BuildableName = "GoogleSignIn"
                BlueprintName = "GoogleSignIn"
-               ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "GoogleSignIn">
+               ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

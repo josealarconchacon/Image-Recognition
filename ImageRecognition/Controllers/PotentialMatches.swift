@@ -19,6 +19,7 @@ class PotentialMatches: UIViewController {
         tableView.dataSource = self
         tableView.reloadData()
         print(DataPersistenceManager.documentsDirectory())
+        tableView.tableFooterView = UIView()
     }
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
@@ -46,8 +47,10 @@ extension PotentialMatches: UITableViewDataSource {
         let potentialMatchesUser = UserModel.getUser()[indexPath.row]
         cell.textLabel?.text = potentialMatchesUser.name + " " + potentialMatchesUser.lastName
         cell.detailTextLabel?.text = potentialMatchesUser.dateFormattedString
-    
         return cell
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70
     }
 }
 extension PotentialMatches: UITableViewDelegate {

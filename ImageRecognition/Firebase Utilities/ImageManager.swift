@@ -48,13 +48,13 @@ final class ImageManager {
                     print("Uh-oh, an error occurred!")
                     return
                 }
-                
+
                 if let url = url {
                     ImageCache.shared.fetchImageFromNetwork(urlString: url.absoluteString, completion: { (error, image) in
                         if let error = error {
                             print(error)
                         }
-                        if image != nil {//if let image = image
+                        if image != nil {
                             self.delegate?.didFetchImage(self, imageURL: url)
                             print(url.absoluteString)
                             self.URLtoSend = downloadURL
@@ -67,6 +67,7 @@ final class ImageManager {
                 }
             }
         }
+    
     ///
     public func postImage(data: Data, imageName: String, firstLastName: String) {
         guard let user = Auth.auth().currentUser else {

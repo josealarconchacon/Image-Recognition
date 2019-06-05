@@ -39,7 +39,6 @@ class PotentialMatchDetail: UIViewController {
                     DispatchQueue.main.async {
                         self.userImage.image = UIImage(data: data)
                         self.userImage.contentMode = UIView.ContentMode.scaleAspectFit
-                        
                     }
                 }
             }

@@ -103,14 +103,14 @@ class AdditionalInformation: UIViewController {
                                           .withTimeZone,
                                           .withDashSeparatorInDate]
         let timestamp = isoDateFormatter.string(from: date)
-//        let user = User.init(name: name, lastName: lastName, country: country, createdAt: timestamp, confidence: confidence, matchID: matchID, age: age)
         let user = User.init(name: name, lastName: lastName, country: country, createdAt: timestamp, confidence: confidence, matchID: matchID, age: age, firebaseImageURLString: firebaseImageURLString)
         
         UserModel.addItem(item: user)
-        
+
     }
     
     @IBAction func backButtonPress(_ sender: UIButton) {
+        
         self.dismiss(animated: true, completion: nil)
     }
     
