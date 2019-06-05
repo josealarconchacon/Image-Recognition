@@ -15,7 +15,8 @@ import UserNotifications
 import Firebase
 import MobileCoreServices
 import MBCircularProgressBar
-import CoreML
+//import CoreML
+
 
 
 let APICallQueue = DispatchQueue(label: "API Queue")
@@ -57,7 +58,7 @@ class MatchingFacesViewController: UIViewController {
         imagePicker.delegate = self
         setButton()
         self.progresiveView.value = 0
-        _ = UITabBarItem(title: nil, image: UIImage(named: "match"), tag: 0)//let tabBar
+        _ = UITabBarItem(title: nil, image: UIImage(named: "match"), tag: 0)
         setButtonView()
         provideAditionalInfo.isHidden = true
         provideAditionalInfo.titleLabel?.textAlignment = .center
@@ -164,7 +165,6 @@ class MatchingFacesViewController: UIViewController {
                     DispatchQueue.main.async {
                     self.matchingResultLabel.isHidden = false
                     self.provideAditionalInfo.isHidden = false
-//                    self.uploadButton.isHidden = true
                     self.progresiveView.emptyLineColor = .white
                     self.provideAditionalInfo.titleLabel?.text = "Add to database"
                     self.matchingResultLabel.text = "Sorry, we did not find a match. \n Do you want to add this person to the database? We can contact you if their information is submitted?"
@@ -234,8 +234,7 @@ extension MatchingFacesViewController: UIImagePickerControllerDelegate, UINaviga
             uploadImage.image = image
             uploadImage.contentMode = UIView.ContentMode.scaleAspectFit
             selectedImage = image
-            guard let data = selectedImage.jpegData(compressionQuality: 0.5) else { return }
-          //  ImageManager.manager.postImage(data: data, imageName: newImageToSend, firstLastName: userKeyName)
+//            guard let data = selectedImage.jpegData(compressionQuality: 0.5) else { return }
         } else {
             print("Image is nil")
         }

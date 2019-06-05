@@ -81,10 +81,10 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
     
     func createUser(email: String, password: String) { // new
         Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
-            if error != nil {
+            if result != nil {
                 // user create
                 let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-                guard let destinationWelcomeViewController = storyboard.instantiateViewController(withIdentifier: "MatchTabViewController") as? WelcomeViewController else {return}
+                guard let destinationWelcomeViewController = storyboard.instantiateViewController(withIdentifier: "account1") as? WelcomeViewController else {return}
                 destinationWelcomeViewController.accountToT = self.accountTo
                 self.present(destinationWelcomeViewController, animated: true, completion:  nil)
                 print("User Created")

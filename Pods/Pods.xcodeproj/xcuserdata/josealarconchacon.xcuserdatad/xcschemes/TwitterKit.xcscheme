@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "AD078AFD92B26EE4FAAEC44A2C1FC191"
+               BuildableName = "TwitterKit"
                BlueprintName = "TwitterKit"
-               ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "TwitterKit">
+               ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
