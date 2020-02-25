@@ -1,89 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Bucket
+   uuid = "1B04B429-3C72-4C4E-A92D-1C9F1949569A"
    type = "0"
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ImageRecognition/Controllers/MainePageViewController.swift"
-            timestampString = "573598995.271266"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "15"
-            endingLineNumber = "15"
-            landmarkName = "MainePageViewController"
-            landmarkType = "3">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ImageRecognition.MainePageViewController.signUpButton.getter : weak Swift.Optional&lt;__C.UIButton&gt;"
-                  moduleName = "ImageRecognition"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/josealarconchacon/Desktop/ImageRecognition/ImageRecognition/Controllers/MainePageViewController.swift"
-                  timestampString = "573006371.511112"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "15"
-                  endingLineNumber = "15"
-                  offsetFromSymbolStart = "96">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ImageRecognition.MainePageViewController.signUpButton.setter : weak Swift.Optional&lt;__C.UIButton&gt;"
-                  moduleName = "ImageRecognition"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/josealarconchacon/Desktop/ImageRecognition/ImageRecognition/Controllers/MainePageViewController.swift"
-                  timestampString = "573006371.513209"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "15"
-                  endingLineNumber = "15"
-                  offsetFromSymbolStart = "112">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ImageRecognition.MainePageViewController.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; ImageRecognition.MainePageViewController"
-                  moduleName = "ImageRecognition"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/josealarconchacon/Desktop/ImageRecognition/ImageRecognition/Controllers/MainePageViewController.swift"
-                  timestampString = "573006371.515111"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "15"
-                  endingLineNumber = "15"
-                  offsetFromSymbolStart = "268">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ImageRecognition.MainePageViewController.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;ImageRecognition.MainePageViewController&gt;"
-                  moduleName = "ImageRecognition"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/josealarconchacon/Desktop/ImageRecognition/ImageRecognition/Controllers/MainePageViewController.swift"
-                  timestampString = "573006371.517025"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "15"
-                  endingLineNumber = "15"
-                  offsetFromSymbolStart = "244">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
+            uuid = "6A116507-767C-469C-B19B-C0B2CFE29A16"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -94,22 +18,6 @@
             startingLineNumber = "18"
             endingLineNumber = "18"
             landmarkName = "viewDidAppear(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ImageRecognition/Controllers/MainePageViewController.swift"
-            timestampString = "573598995.271348"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "21"
-            endingLineNumber = "21"
-            landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
