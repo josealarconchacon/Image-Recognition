@@ -26,11 +26,6 @@ class ViewController: UIViewController {
         textFieldEmail.delegate = self
         textFieldPassword.delegate = self
         setButton()
-        setTextFieldToSet()
-        let emailImage = UIImage(named: "email-1")
-        leftImageTextFiel(textField: textFieldEmail, image: emailImage!)
-        let passwordlImage = UIImage(named: "lock-1")
-        leftImagePassTextFiel(textField: textFieldPassword, image: passwordlImage!)
         
         if let userName = UserDefaults.standard.object(forKey: UserDefaultKey.userEmailKey) as? String {
             textFieldEmail.text = userName
@@ -58,28 +53,8 @@ class ViewController: UIViewController {
         continueButton.layer.shadowOpacity = 0.5
         continueButton.layer.shadowOffset = CGSize(width: 0, height: 0)
     }
-    
-    func setTextFieldToSet() {
-        textFieldEmail.textFieldStyle()
-        textFieldPassword.textFieldStyle()
-        textFieldEmail.textFieldButtonStyle()
-        textFieldPassword.textFieldButtonStyle()
-    }
-    
-    func leftImageTextFiel(textField: UITextField, image img: UIImage) {
-        let imageView = UIImageView(frame: CGRect(x: 0.0, y: 0.0, width: img.size.width, height: img.size.height))
-        imageView.image = img
-        textFieldEmail.leftView = imageView
-        textFieldEmail.leftViewMode = .always
-    }
-    
-    func leftImagePassTextFiel(textField: UITextField, image img: UIImage) {
-        let imageView = UIImageView(frame: CGRect(x: 0.0, y: 0.0, width: img.size.width, height: img.size.height))
-        imageView.image = img
-        textFieldPassword.leftView = imageView
-        textFieldPassword.leftViewMode = .always
-    }
 
+    
     func signInUser(email: String, password: String) {
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             if error == nil {
@@ -101,10 +76,6 @@ class ViewController: UIViewController {
                 })
             }
         }
-    }
-    
-    @IBAction func backButton(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
     }
     
     private func registerKeyboardNotification(){
@@ -137,17 +108,3 @@ extension ViewController: UITextFieldDelegate{
     }
 }
 
-extension UITextField {
-    func textFieldStyle() {
-        let paddingTFView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: self.frame.height))
-        self.leftView = paddingTFView
-        self.leftViewMode = .always
-    }
-    
-    func textFieldButtonStyle() {
-        self.layer.shadowColor = UIColor.darkGray.cgColor
-        self.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
-        self.layer.shadowOpacity = 1.0
-        self.layer.shadowRadius = 0.0
-    }
-}
