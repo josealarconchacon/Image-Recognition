@@ -13,8 +13,7 @@ import FirebaseAuth
 class CreateAccountViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var create: UIButton!    
+    @IBOutlet weak var create: UIButton!
     
     var accountTo = String()
     var issigIn: Bool = true
@@ -22,19 +21,9 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        imageView.layer.borderWidth = 1
-        imageView.layer.masksToBounds = false
-        imageView.layer.borderColor = UIColor.lightGray.cgColor
-        imageView.layer.cornerRadius = imageView.frame.height/4
-        imageView.clipsToBounds = true
-        setTextFiel()
         setButton()
         emailTextField.delegate = self
         passwordTextField.delegate = self
-        let emailImage = UIImage(named: "email-1")
-        leftImageTextFiel(textField: emailTextField, image: emailImage!)
-        let passwordlImage = UIImage(named: "lock-1")
-        leftImagePassTextFiel(textField: passwordTextField, image: passwordlImage!)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,13 +36,6 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
             emailTextField.resignFirstResponder()
             passwordTextField.resignFirstResponder()
         }
-    }
-    
-    func setTextFiel() {
-        emailTextField.textFieldPadding()
-        emailTextField.textFieldBottom()
-        passwordTextField.textFieldPadding()
-        passwordTextField.textFieldBottom()
     }
     
     func setButton() {
@@ -117,10 +99,6 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    @IBAction func backButton(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
     @IBAction func createButton(_ sender: UIButton) {
         createUser(email: emailTextField.text!, password: passwordTextField.text!)
         presentedViewController?.performSegue(withIdentifier: "account1", sender: self)
@@ -132,16 +110,3 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
     }
 }
 
-extension UITextField {
-    func textFieldPadding() {
-        let paddingTFView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: self.frame.height))
-        self.leftView = paddingTFView
-        self.leftViewMode = .always
-    }
-    func textFieldBottom() {
-        self.layer.shadowColor = UIColor.darkGray.cgColor
-        self.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
-        self.layer.shadowOpacity = 1.0
-        self.layer.shadowRadius = 0.0
-    }
-}
