@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Bolts.xcscheme</key>
+		<key>AppAuth.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -54,6 +54,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>FirebaseCoreDiagnostics.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>FirebaseCoreDiagnosticsInterop.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>FirebaseDatabase.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -64,7 +74,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>FirebaseInstanceID.xcscheme</key>
+		<key>FirebaseInstallations.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -99,17 +109,22 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>FirebaseUI-FirebaseOAuthUI.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>FirebaseUI-FirebasePhoneAuthUI.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>FirebaseUI-FirebaseTwitterAuthUI.xcscheme</key>
+		<key>FirebaseUI.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>FirebaseUI.xcscheme</key>
+		<key>GTMAppAuth.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -124,12 +139,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>GoogleSignIn.xcscheme</key>
+		<key>GoogleDataTransport.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>GoogleToolboxForMac.xcscheme</key>
+		<key>GoogleDataTransportCCTSupport.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>GoogleSignIn.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -159,7 +179,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Protobuf.xcscheme</key>
+		<key>PromisesObjC.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -169,17 +189,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>TwitterCore.xcscheme</key>
+		<key>abseil.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>TwitterKit.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>gRPC-C++-gRPCCertificates.xcscheme</key>
+		<key>gRPC-C++-gRPCCertificates-Cpp.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

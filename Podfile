@@ -6,14 +6,13 @@ target 'ImageRecognition' do
   use_frameworks!
 
   # Pods for ImageRecognition
-pod 'Firebase/Core' 
-pod 'Firebase/Storage' 
-pod 'Firebase/Auth'
-pod 'Firebase/Firestore'
-pod "MBCircularProgressBar"
-pod 'FirebaseUI'
-pod 'Firebase/Database'
-pod 'Kingfisher' 
-pod 'DropDown'
-
+	pod 'Firebase/Core' 
+	pod 'Firebase/Storage' 
+	pod 'Firebase/Auth'
+	pod 'Firebase/Firestore'
+	pod "MBCircularProgressBar"
+	pod 'FirebaseUI'
+	pod 'Firebase/Database'
+	pod 'Kingfisher', '~> 5.0' 
+	pod 'DropDown'
 end

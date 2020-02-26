@@ -22,14 +22,14 @@ class MainePageViewController: UIViewController {
     }
     
     func setButton() {
-        logInButton.backgroundColor = UIColor.darkGray
+        logInButton.backgroundColor = UIColor(red: 0.9373, green: 0.9373, blue: 0.9373, alpha: 1.0)
         logInButton.layer.cornerRadius = logInButton.frame.height / 2
         logInButton.setTitleColor(.white, for: .normal)
         logInButton.layer.shadowRadius = 2
         logInButton.layer.shadowOpacity = 0.5
         logInButton.layer.shadowOffset = CGSize(width: 0, height: 0)
         
-        signUpButton.backgroundColor = UIColor.darkGray
+        signUpButton.backgroundColor = UIColor(red: 0.9373, green: 0.9373, blue: 0.9373, alpha: 1.0)
         signUpButton.layer.cornerRadius = signUpButton.frame.height / 2
         signUpButton.setTitleColor(.white, for: .normal)
         signUpButton.layer.shadowRadius = 2
