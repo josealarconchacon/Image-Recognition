@@ -277,8 +277,8 @@
 				67E955CD21F0D10500805123 /* Sources */,
 				67E955CE21F0D10500805123 /* Frameworks */,
 				67E955CF21F0D10500805123 /* Resources */,
-				B3CFCDEDBE51622F4A22FA7F /* [CP] Copy Pods Resources */,
-				AA68B6AF856366A486D0ED50 /* [CP] Embed Pods Frameworks */,
+				DD7BDA0AA58D59348BB8A27F /* [CP] Embed Pods Frameworks */,
+				620CD057A63AAD5F1E38E2F9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -360,24 +360,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		AA68B6AF856366A486D0ED50 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ImageRecognition/Pods-ImageRecognition-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ImageRecognition/Pods-ImageRecognition-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ImageRecognition/Pods-ImageRecognition-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B3CFCDEDBE51622F4A22FA7F /* [CP] Copy Pods Resources */ = {
+		620CD057A63AAD5F1E38E2F9 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -392,6 +375,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ImageRecognition/Pods-ImageRecognition-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DD7BDA0AA58D59348BB8A27F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ImageRecognition/Pods-ImageRecognition-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ImageRecognition/Pods-ImageRecognition-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ImageRecognition/Pods-ImageRecognition-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
