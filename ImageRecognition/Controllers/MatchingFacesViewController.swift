@@ -10,18 +10,11 @@ import UIKit
 import Photos
 import Foundation
 import UserNotifications
-//import FirebaseAuth
-//import FirebaseStorage
 import Firebase
 import MobileCoreServices
-import MBCircularProgressBar
-//import CoreML
-
-
 
 let APICallQueue = DispatchQueue(label: "API Queue")
 class MatchingFacesViewController: UIViewController {    
-    @IBOutlet weak var progresiveView: MBCircularProgressBarView!
     @IBOutlet weak var uploadImage: UIImageView!
     @IBOutlet weak var matchingResultLabel: UILabel!
     @IBOutlet weak var uploadButton: UIButton!
@@ -50,14 +43,14 @@ class MatchingFacesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         ImageManager.manager.delegate = self
-        uploadImage.layer.cornerRadius = uploadImage.frame.height / 2
+        uploadImage.layer.cornerRadius = uploadImage.frame.size.width / 2
         uploadImage.clipsToBounds = true
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(gestureRecognizer:)))
         uploadImage.addGestureRecognizer(tapGesture)
         uploadImage.isUserInteractionEnabled = true
         imagePicker.delegate = self
         setButton()
-        self.progresiveView.value = 0
+
         _ = UITabBarItem(title: nil, image: UIImage(named: "match"), tag: 0)
         setButtonView()
         provideAditionalInfo.isHidden = true
@@ -122,10 +115,9 @@ class MatchingFacesViewController: UIViewController {
     }
     
     @IBAction func uploadButton(_ sender: UIButton) {
-        UIView.animate(withDuration: 1.0) { self.progresiveView.value = 100}
-        
         guard let image = uploadImage.image else { return }
-        ImageManager.manager.uploadImage(image: image, fileName: "image") {URL in
+        
+        ImageManager.manager.uploadImage(image: image, fileName: "image") { URL in
             print("results of completion handler: ")
             self.URLfromAPI = URL
             self.firebaseImageURL = URL
@@ -165,7 +157,6 @@ class MatchingFacesViewController: UIViewController {
                     DispatchQueue.main.async {
                     self.matchingResultLabel.isHidden = false
                     self.provideAditionalInfo.isHidden = false
-                    self.progresiveView.emptyLineColor = .white
                     self.provideAditionalInfo.titleLabel?.text = "Add to database"
                     self.matchingResultLabel.text = "Sorry, we did not find a match. \n Do you want to add this person to the database? We can contact you if their information is submitted?"
                     }

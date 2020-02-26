@@ -345,7 +345,6 @@ PODS:
     - Kingfisher/Core (= 5.13.1)
   - Kingfisher/Core (5.13.1)
   - leveldb-library (1.22)
-  - MBCircularProgressBar (0.3.5)
   - nanopb (0.3.9011):
     - nanopb/decode (= 0.3.9011)
     - nanopb/encode (= 0.3.9011)
@@ -365,7 +364,6 @@ DEPENDENCIES:
   - Firebase/Storage
   - FirebaseUI
   - Kingfisher (~> 5.0)
-  - MBCircularProgressBar
 
 SPEC REPOS:
   trunk:
@@ -398,7 +396,6 @@ SPEC REPOS:
     - GTMSessionFetcher
     - Kingfisher
     - leveldb-library
-    - MBCircularProgressBar
     - nanopb
     - PromisesObjC
     - SDWebImage
@@ -433,11 +430,10 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: cea130bbfe5a7edc8d06d3f0d17288c32ffe9925
   Kingfisher: f33a848445e33c543620812158dc5d47f6bf90df
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
-  MBCircularProgressBar: 0b795b722a5eb5b0923822f90474e2576a1a7855
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   SDWebImage: 4d5c027c935438f341ed33dbac53ff9f479922ca
 
-PODFILE CHECKSUM: 00c40be603550645493c3610153c9ba0ff5a1304
+PODFILE CHECKSUM: 1d7771e9f044bf1c950f128e1bf7650ae2ef5d45
 
 COCOAPODS: 1.8.4

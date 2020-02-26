@@ -10,7 +10,6 @@ target 'ImageRecognition' do
 	pod 'Firebase/Storage' 
 	pod 'Firebase/Auth'
 	pod 'Firebase/Firestore'
-	pod "MBCircularProgressBar"
 	pod 'FirebaseUI'
 	pod 'Firebase/Database'
 	pod 'Kingfisher', '~> 5.0' 
