@@ -71,10 +71,9 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
                 self.present(destinationWelcomeViewController, animated: true, completion:  nil)
                 print("User Created")
             } else {
-                self.showAlert(title: nil, message: "password should be 6 character long", style: .alert, handler: { (action) in })
-                let _ = UIAlertAction(title: "OK", style: .default, handler: { (action) in })
-//                print(error!.localizedDescription)
-                
+                // Show Firebase's actual reason (weak password, email in use, invalid email…).
+                let message = error?.localizedDescription ?? "Your account could not be created. Please try again."
+                self.showAlert(title: "Could not create account", message: message, actionTitle: "OK")
             }
         }
     }
@@ -100,8 +99,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func createButton(_ sender: UIButton) {
-        createUser(email: emailTextField.text!, password: passwordTextField.text!)
-        presentedViewController?.performSegue(withIdentifier: "account1", sender: self)
+        createUser(email: emailTextField.text ?? "", password: passwordTextField.text ?? "")
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

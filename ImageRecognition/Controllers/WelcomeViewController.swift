@@ -22,7 +22,8 @@ class WelcomeViewController: UIViewController {
         importantInformationTextView.text = "These Website Standard Terms And Conditions (these “Terms” or these “Website Standard Terms And Conditions”) contained herein on this webpage, shall govern your use of this website, including all pages within this website (collectively referred to herein below as this “Website”). These Terms apply in full force and effect to your use of this Website and by using this Website, you expressly accept all terms and conditions contained herein in full. You must not use this Website, if you have any objection to any of these Website Standard Terms And Conditions.This Website is not for use by any minors (defined as those who are not at least 18 years of age), and you must not use this Website if you a minor."
         
         ckexkBoxButton.setImage(UIImage(named: "icons8-unchecked_checkbox_filled"), for: .normal)
-        ckexkBoxButton.setImage(UIImage(named: "icons8-checked_checkbox"), for: .normal)
+        ckexkBoxButton.setImage(UIImage(named: "icons8-checked_checkbox"), for: .selected)
+        ckexkBoxButton.isSelected = false
     }
     
     override func didReceiveMemoryWarning() {
@@ -35,9 +36,15 @@ class WelcomeViewController: UIViewController {
     
 
     @IBAction func doneButtonPress(_ sender: UIBarButtonItem) {
+        guard ckexkBoxButton.isSelected else {
+            showAlert(title: "Terms and Conditions", message: "Please accept the terms and conditions to continue.", actionTitle: "OK")
+            return
+        }
+        // Go to the main tabs (same screen a signed-in user gets at launch),
+        // replacing the sign-up screens instead of stacking on top of them.
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-        guard let destinationController = storyboard.instantiateViewController(withIdentifier: "loadingImage") as? MatchingFacesViewController else {return}
-        self.present(destinationController, animated: true, completion: nil)
+        guard let destinationController = storyboard.instantiateViewController(withIdentifier: "MatchTabViewController") as? MatchTabViewController else {return}
+        view.window?.rootViewController = destinationController
     }
     
     @IBAction func ckeckMarkWassPress(_ sender: UIButton) { // Check Mark B

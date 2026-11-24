@@ -42,28 +42,59 @@ class AdditionalInformation: UIViewController {
         ref = Firestore.firestore().collection("users")
     }
     
+    private func trimmedText(_ textField: UITextField) -> String {
+        return (textField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    /// Saves the person to Firestore, then locally, then returns to the main tabs.
     func addUser() {
-        let userToAdd = ["id": Auth.auth().currentUser!.uid,
-                         "firstName": firstNameTextField.text! as String,
-                         "lastName" : lastNameTextField.text! as String,
-                         "age"      : ageTextField.text! as String,
-                         "country"  : countryTextField.text! as String,
+        guard let currentUser = Auth.auth().currentUser else {
+            showAlert(title: "Not signed in", message: "Please log in again before adding a person.", actionTitle: "OK")
+            return
+        }
+        let name = trimmedText(firstNameTextField)
+        let lastName = trimmedText(lastNameTextField)
+        let age = trimmedText(ageTextField)
+        let country = trimmedText(countryTextField)
+        guard !name.isEmpty, !lastName.isEmpty else {
+            showAlert(title: "Missing information", message: "Please enter at least a first and last name.", actionTitle: "OK")
+            return
+        }
+
+        let userToAdd = ["id": currentUser.uid,
+                         "firstName": name,
+                         "lastName" : lastName,
+                         "age"      : age,
+                         "country"  : country,
                          "matchID"  : matchID,
                          "confidence": confidence,
                          "firebaseURLString": firebaseImageURLString
-                         
             ] as [String : Any]
-        ref.addDocument(data: userToAdd)
-        labelText.text = "Successfully Added it"
-        print(userToAdd)
-        
-        UIView.animate(withDuration: 5.0, delay: 0, options: [.curveEaseIn], animations: {
-            let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-            guard let destinationViewController = storyboard.instantiateViewController(withIdentifier: "MatchTabViewController") as? MatchTabViewController else {return}
 
-            self.present(destinationViewController, animated: true, completion:  nil)
-        })
-        
+        addButton.isEnabled = false
+        labelText.text = "Saving…"
+        ref.addDocument(data: userToAdd) { [weak self] error in
+            guard let self = self else { return }
+            if let error = error {
+                self.addButton.isEnabled = true
+                self.labelText.text = nil
+                self.showAlert(title: "Could not save", message: error.localizedDescription, actionTitle: "OK")
+                return
+            }
+            let timestamp = ISO8601DateFormatter().string(from: Date())
+            let user = User(name: name, lastName: lastName, country: country, createdAt: timestamp,
+                            confidence: self.confidence, matchID: self.matchID, age: age,
+                            firebaseImageURLString: self.firebaseImageURLString)
+            UserModel.addItem(item: user)
+            self.labelText.text = "Successfully Added it"
+
+            // Show the confirmation briefly, then replace the screen stack with the main tabs.
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+                guard let destinationViewController = storyboard.instantiateViewController(withIdentifier: "MatchTabViewController") as? MatchTabViewController else {return}
+                self.view.window?.rootViewController = destinationViewController
+            }
+        }
     }
     
     func setTextField() {
@@ -87,26 +118,7 @@ class AdditionalInformation: UIViewController {
     }
     
     @IBAction func addInfoButtonPress(_ sender: UIButton) {
-        // Post to firebase
         addUser()
-       
-        guard let name = firstNameTextField.text,
-            let lastName = lastNameTextField.text,
-            let age = ageTextField.text,
-            let country = countryTextField.text else {fatalError("user is nil")}
-
-        let date = Date()
-        let isoDateFormatter = ISO8601DateFormatter()
-        isoDateFormatter.formatOptions = [.withFullDate,
-                                          .withFullTime,
-                                          .withInternetDateTime,
-                                          .withTimeZone,
-                                          .withDashSeparatorInDate]
-        let timestamp = isoDateFormatter.string(from: date)
-        let user = User.init(name: name, lastName: lastName, country: country, createdAt: timestamp, confidence: confidence, matchID: matchID, age: age, firebaseImageURLString: firebaseImageURLString)
-        
-        UserModel.addItem(item: user)
-
     }
     
     @IBAction func backButtonPress(_ sender: UIButton) {

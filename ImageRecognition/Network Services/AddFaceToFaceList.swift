@@ -9,41 +9,21 @@
 import Foundation
 
 final class AddFaceToFaceList {
-    
-    static func addFace(imageURL: String, completionHandler: @escaping ((String?) -> Void)) {
-        let endpointURLString = "https://eastus.api.cognitive.microsoft.com/face/v1.0/facelists/newprojectfacelist/persistedFaces"
-        guard let url = URL(string: endpointURLString) else {
-            print("Bad URL")
-            return
-        }
-     var request = URLRequest(url: url)
-         request.addValue("2a4cfb8a6038416ab369fcecd73ab423", forHTTPHeaderField: "Ocp-Apim-Subscription-Key")
-         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-         request.httpMethod = "POST"
-        
-     let newFace = RequestFace.init(persistedFaceId: String())
-        do {
-             let data = try JSONEncoder().encode(newFace)
-             request.httpBody = data
-        } catch {
-             print("json encoding error: \(error)")
-        }
-        let task = URLSession.shared.uploadTask(with: request, from: nil) { (data, response, error) in
-            if let error = error {
-                print("upload task error:  \(error)")
-            } else if let data = data {
-                print("data: \(data)")
-                print(response)
-                do {
-                    let data = try JSONDecoder().decode(RequestFace.self, from: data)
-                    let imageData = data
-                    completionHandler(imageData.persistedFaceId)
-                    
-                } catch {
-                    print("decoding error: \(error)")
+    /// Adds the face in the image at `imageURL` to the "newprojectfacelist" face list
+    /// (the list FindSimilarAPIClient searches) and returns its persistedFaceId.
+    static func addFace(imageURL: URL, completionHandler: @escaping (Result<String, AppError>) -> Void) {
+        FaceAPI.post(path: "/facelists/newprojectfacelist/persistedFaces",
+                     body: DetectFaceUrl(url: imageURL)) { (result: Result<RequestFace, AppError>) in
+            switch result {
+            case .success(let face):
+                if let id = face.persistedFaceId {
+                    completionHandler(.success(id))
+                } else {
+                    completionHandler(.failure(.noFaceDetected))
                 }
+            case .failure(let error):
+                completionHandler(.failure(error))
             }
         }
-        task.resume()
     }
 }

@@ -29,11 +29,9 @@ class PotentialMatches: UIViewController {
         if segue.identifier == "showDetail" {
             guard let indexPath = tableView.indexPathForSelectedRow,
                 let detailViewController = segue.destination as? PotentialMatchDetail else {
-                    fatalError("indexPath, detailViewController nil")
+                    return
             }
-            let item = UserModel.getUser()[indexPath.row]
-           detailViewController.user = item
-            tableView.reloadData()
+            detailViewController.user = UserModel.getUser()[indexPath.row]
         }
     }
 
