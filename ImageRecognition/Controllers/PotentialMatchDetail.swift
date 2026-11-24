@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class PotentialMatchDetail: UIViewController {
     
@@ -33,15 +34,11 @@ class PotentialMatchDetail: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        userImage.contentMode = .scaleAspectFit
         if let imageLocation = URL(string: user.firebaseImageURLString) {
-            DispatchQueue.global().async {
-                if let data = try? Data(contentsOf: imageLocation) {
-                    DispatchQueue.main.async {
-                        self.userImage.image = UIImage(data: data)
-                        self.userImage.contentMode = UIView.ContentMode.scaleAspectFit
-                    }
-                }
-            }
+            // Kingfisher downloads off the main thread and caches the result.
+            userImage.kf.setImage(with: imageLocation, placeholder: UIImage(named: "placeholder-image-1"))
         } else {
             print("not a valid URL")
         }

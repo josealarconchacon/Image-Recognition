@@ -2,7 +2,7 @@
 //  MatchingFacesViewController.swift
 //  ImageRecognition
 //
-//  Created by Jose Alarcon Chacon on 2/4/19.
+//  Created by Jose Alarcon Chacon on 2/7/19.
 //  Copyright © 2019 Jose Alarcon Chacon. All rights reserved.
 //
 
@@ -14,31 +14,32 @@ import Firebase
 import MobileCoreServices
 
 let APICallQueue = DispatchQueue(label: "API Queue")
-class MatchingFacesViewController: UIViewController {    
+class MatchingFacesViewController: UIViewController {
     @IBOutlet weak var uploadImage: UIImageView!
     @IBOutlet weak var matchingResultLabel: UILabel!
     @IBOutlet weak var uploadButton: UIButton!
     @IBOutlet weak var provideAditionalInfo: UIButton!
-    
-    
+
+    /// Matches below this confidence are treated as "no match".
+    private let matchThreshold = 0.5
+    private static let initialPrompt = "Upload an image to see if there is a match"
+
     let uploadImageRequest = DataPersistenceManager()
     var accountToT = String()
-    
+
     var imagePicker = UIImagePickerController()
     var selectedImage: UIImage!
     var detect = [DetectFaceUrl]()
-    
-    private var URLfromAPI: URL!
-    private var faceIdToSend: String!
-    private var matchingFaceId: String!
-    private var confidenceInMatch: Double!
+
     private var tapGesture: UITapGestureRecognizer!
-    
-    private var newImageURLR: URL!
-    private var newImageToSend = String()
-    private var matchFound: Bool!
-    private var firebaseImageURL: URL!
+
+    // Result of the last search. nil until a search has finished.
+    private var matchFound: Bool?
+    private var matchingFaceId = ""
+    private var confidenceInMatch = 0.0
+    private var firebaseImageURL: URL?
     private var userKeyName = String()
+    private var newImageToSend = String()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,47 +52,41 @@ class MatchingFacesViewController: UIViewController {
         imagePicker.delegate = self
         setButton()
 
-        _ = UITabBarItem(title: nil, image: UIImage(named: "match"), tag: 0)
         setButtonView()
-        provideAditionalInfo.isHidden = true
         provideAditionalInfo.titleLabel?.textAlignment = .center
-        matchingResultLabel.text = "Upload an image to see if there is a match"
         matchingResultLabel.textAlignment = .center
+        resetSearchState()
         uploadButton.isEnabled = false
     }
-    
+
     @objc private func handleTap(gestureRecognizer: UITapGestureRecognizer) {
         let alertController = UIAlertController(title: "Choose Image Type", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
-        let imageGallery = UIAlertAction(title: "Open Gallery", style: .default) { (UIAlertAction) in
+        let imageGallery = UIAlertAction(title: "Open Gallery", style: .default) { _ in
             self.imagePicker.sourceType = .photoLibrary
             self.showImagePickerController()
-            self.uploadButton.isEnabled = true
         }
-        
-        let camera = UIAlertAction(title: "Open Camera", style: .default) { (UIAlertAction) in
-            print("Camera selected")
-            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) == true {
-                self.showImagePickerController()
-                self.imagePicker.allowsEditing = false
+
+        let camera = UIAlertAction(title: "Open Camera", style: .default) { _ in
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                // Configure the picker before presenting it, or it opens the photo library.
                 self.imagePicker.sourceType = .camera
+                self.imagePicker.allowsEditing = false
                 self.imagePicker.mediaTypes = [kUTTypeImage as String]
-                self.uploadButton.isEnabled = true
-            
+                self.showImagePickerController()
             } else {
-                self.present(self.showAlert(Title: "Title", Message: "Photo Library is not available on this Device or accesibility has been revoked!"), animated: true, completion: nil)
+                self.present(self.showAlert(Title: "Camera unavailable", Message: "The camera is not available on this device, or access to it has been revoked."), animated: true, completion: nil)
             }
         }
-        
-        let cancel  = UIAlertAction(title: "Cancel", style: .cancel) { (UIAlertAction) in  }
+
+        let cancel  = UIAlertAction(title: "Cancel", style: .cancel)
         alertController.addAction(imageGallery)
         alertController.addAction(camera)
         alertController.addAction(cancel)
         alertController.popoverPresentationController?.sourceView = view
         alertController.popoverPresentationController?.sourceRect = view.frame
-        self.uploadButton.isEnabled = true
         self.present(alertController, animated: true, completion: nil)
     }
-    
+
     func setButton() {
         uploadButton.backgroundColor = UIColor(red: 0.9373, green: 0.9373, blue: 0.9373, alpha: 1.0)
         uploadButton.layer.cornerRadius = uploadButton.frame.height / 2
@@ -100,11 +95,7 @@ class MatchingFacesViewController: UIViewController {
         uploadButton.layer.shadowOpacity = 0.5
         uploadButton.layer.shadowOffset = CGSize(width: 0, height: 0)
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-    }
-    
+
     func setButtonView() {
         provideAditionalInfo.backgroundColor = UIColor(red: 0.9373, green: 0.9373, blue: 0.9373, alpha: 1.0)
         provideAditionalInfo.layer.cornerRadius = provideAditionalInfo.frame.height / 2
@@ -113,100 +104,99 @@ class MatchingFacesViewController: UIViewController {
         provideAditionalInfo.layer.shadowOpacity = 0.5
         provideAditionalInfo.layer.shadowOffset = CGSize(width: 0, height: 0)
     }
-    
+
+    private func resetSearchState() {
+        matchFound = nil
+        matchingFaceId = ""
+        confidenceInMatch = 0
+        firebaseImageURL = nil
+        provideAditionalInfo.isHidden = true
+        uploadButton.isHidden = false
+        matchingResultLabel.isHidden = false
+        matchingResultLabel.text = MatchingFacesViewController.initialPrompt
+    }
+
     @IBAction func uploadButton(_ sender: UIButton) {
         guard let image = uploadImage.image else { return }
-        
-        ImageManager.manager.uploadImage(image: image, fileName: "image") { URL in
-            print("results of completion handler: ")
-            self.URLfromAPI = URL
-            self.firebaseImageURL = URL
-            print(URL)
-            
-            FaceDetectAPIClient.fetchImageFaceUrl(urlInput: URL) { (data) in
-                self.faceIdToSend = data.faceId
-                print("Face id: ")
-                print(self.faceIdToSend)
-                
-                self.matchFound = false
-                
-                FindSimilarAPIClient.fetchImageFaceInfo(faceID: self.faceIdToSend!)  { (response) in
-                    print("Findsimilar data is \(response)")
-                    let matchID = response.persistedFaceId
-                    let confidence = response.confidence
-                    self.matchingFaceId = matchID
-                    self.confidenceInMatch = confidence
-                    print("match id is \(matchID)")
-                    print("confidence is \(confidence)")
-                    self.matchFound = true
-                    
-                    if confidence > 0.5 {
-                        DispatchQueue.main.async {
-                        self.matchingResultLabel.isHidden = false
-//                        self.provideAditionalInfo.isHidden = true
-                        self.uploadButton.isHidden = true
-                        let confidencePercent = confidence*100
-                        self.matchingResultLabel.text =
-                            "We found a match with \(round(confidencePercent))% confidence. \n Please provide more information and a reunification coordinator will reach out to you."
-                            self.provideAditionalInfo.titleLabel!.text = "Provide more information"
+        resetSearchState()
+        uploadButton.isEnabled = false
+        matchingResultLabel.text = "Searching for a match…"
+
+        // Each step starts only after the previous one has finished:
+        // upload → detect face → find similar → show result.
+        ImageManager.manager.uploadImage(image: image) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .failure(let error):
+                self.showSearchError("The image could not be uploaded. \(error.localizedDescription)")
+            case .success(let url):
+                self.firebaseImageURL = url
+                FaceDetectAPIClient.fetchImageFaceUrl(urlInput: url) { result in
+                    switch result {
+                    case .failure(let error):
+                        self.showSearchError(error.errorMessage())
+                    case .success(let face):
+                        FindSimilarAPIClient.fetchImageFaceInfo(faceID: face.faceId) { result in
+                            switch result {
+                            case .failure(let error):
+                                self.showSearchError(error.errorMessage())
+                            case .success(let candidate):
+                                self.showMatchResult(candidate)
+                            }
                         }
                     }
                 }
-                if self.matchFound == false {
-                    print("a match is not found")
-                    DispatchQueue.main.async {
-                    self.matchingResultLabel.isHidden = false
-                    self.provideAditionalInfo.isHidden = false
-                    self.provideAditionalInfo.titleLabel?.text = "Add to database"
-                    self.matchingResultLabel.text = "Sorry, we did not find a match. \n Do you want to add this person to the database? We can contact you if their information is submitted?"
-                    }
-                }
             }
         }
     }
 
-    
+    private func showMatchResult(_ candidate: ConfidenceData?) {
+        uploadButton.isEnabled = true
+        provideAditionalInfo.isHidden = false
+        if let candidate = candidate, candidate.confidence > matchThreshold {
+            matchFound = true
+            matchingFaceId = candidate.persistedFaceId
+            confidenceInMatch = candidate.confidence
+            matchingResultLabel.text =
+                "We found a match with \(Int(round(candidate.confidence * 100)))% confidence. \n Please provide more information and a reunification coordinator will reach out to you."
+            provideAditionalInfo.setTitle("Provide more information", for: .normal)
+        } else {
+            matchFound = false
+            matchingResultLabel.text = "Sorry, we did not find a match. \n Do you want to add this person to the database? We can contact you if their information is submitted."
+            provideAditionalInfo.setTitle("Add to database", for: .normal)
+        }
+    }
+
+    private func showSearchError(_ message: String) {
+        print("Search failed: \(message)")
+        uploadButton.isEnabled = true
+        provideAditionalInfo.isHidden = true
+        matchingResultLabel.text = message
+    }
+
     @IBAction func provideMoreInfoButton(_ sender: UIButton) {
+        // The photo was already uploaded during the search, so reuse its URL.
+        guard let matchFound = matchFound, let imageURL = firebaseImageURL else { return }
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         guard let informationController = storyboard.instantiateViewController(withIdentifier: "AdditionalInformation") as? AdditionalInformation else {return}
 
-        if self.matchFound == true {
+        informationController.firebaseImageURLString = imageURL.absoluteString
+        informationController.userKeyName = userKeyName
+        informationController.newImageToSend = newImageToSend
+        if matchFound {
             informationController.matchID = matchingFaceId
             informationController.confidence = confidenceInMatch
-            informationController.firebaseImageURLString = firebaseImageURL.absoluteString
-            informationController.userKeyName = userKeyName
-            informationController.newImageToSend = newImageToSend
-        }
-        
-        if self.matchFound == false {
-            guard let newFace = uploadImage.image else { return }
-            ImageManager.manager.uploadImage(image: newFace, fileName: "image") { URL in
-                print("New results of completion handler: ")
-                    self.newImageURLR = URL
-                    informationController.firebaseImageURLString = self.newImageURLR.absoluteString
-                    print(URL)
-//                AddFaceToFaceList.addFace(imageURL: self.newImageURLR.absoluteString, completionHandler: { (faceId) in
-//                    if let faceId = faceId {
-//                        print("found id: \(faceId)")
-//                    } else {
-//                        print("id is nil")
-//                    }
-//
-//                })
-            }
         }
         self.present(informationController, animated: true, completion: nil)
     }
-    
+
     func present(){
         self.present(imagePicker, animated: true, completion: nil)
     }
-    
+
     func showAlert(Title : String!, Message : String!)  -> UIAlertController {
         let alertController : UIAlertController = UIAlertController(title: Title, message: Message, preferredStyle: .alert)
-        let okAction : UIAlertAction = UIAlertAction(title: "Ok", style: .default) { (alert) in
-            print("User pressed ok function")
-        }
+        let okAction : UIAlertAction = UIAlertAction(title: "Ok", style: .default)
         alertController.addAction(okAction)
         alertController.popoverPresentationController?.sourceView = view
         alertController.popoverPresentationController?.sourceRect = view.frame
@@ -219,13 +209,15 @@ class MatchingFacesViewController: UIViewController {
 }
 
 extension MatchingFacesViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
+
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             uploadImage.image = image
             uploadImage.contentMode = UIView.ContentMode.scaleAspectFit
             selectedImage = image
-//            guard let data = selectedImage.jpegData(compressionQuality: 0.5) else { return }
+            // A new photo invalidates the previous result.
+            resetSearchState()
+            uploadButton.isEnabled = true
         } else {
             print("Image is nil")
         }

@@ -1,0 +1,26 @@
+rules_version = '2';
+
+// Firestore rules for ImageRecognition.
+// Paste into Firebase console → Firestore Database → Rules → Publish.
+// Anything not matched below is denied.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    // People submitted from the "Provide more information" / "Add to database" form
+    // (AdditionalInformation.swift). Each document stores its creator in `id`.
+    // Documents keyed by the user's uid are also allowed, for
+    // DatabaseManager.updateImageURL, which writes to users/{uid}.
+    match /users/{docId} {
+      allow create: if signedIn()
+                    && request.resource.data.id == request.auth.uid;
+
+      allow read, update, delete: if signedIn()
+                    && (docId == request.auth.uid
+                        || resource.data.id == request.auth.uid);
+    }
+  }
+}
