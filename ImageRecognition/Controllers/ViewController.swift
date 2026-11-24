@@ -68,12 +68,11 @@ class ViewController: UIViewController {
                 destinationViewController.match = self.create
                 self.present(destinationViewController, animated: true, completion:  nil)
                 
-            } else if error?._code == AuthErrorCode.userNotFound.rawValue{
+            } else if error?._code == AuthErrorCode.userNotFound.rawValue {
+                self.showAlert(title: "No account found", message: "There is no account for this email. Please sign up first.", actionTitle: "OK")
             } else {
-                print("Error is: \(error!.localizedDescription)")
-                self.showAlert(title: "Invalid email or password", message: "Please try again", style: .alert, handler: { (action) in })
-                let _ = UIAlertAction(title: "OK", style: .default, handler: { (UIAlertAction) in
-                })
+                print("Error is: \(error?.localizedDescription ?? "unknown")")
+                self.showAlert(title: "Invalid email or password", message: "Please try again", actionTitle: "OK")
             }
         }
     }
@@ -97,7 +96,7 @@ class ViewController: UIViewController {
     }
    
     @IBAction func continueButtonPress(_ sender: UIButton) {
-          signInUser(email: textFieldEmail.text!, password: textFieldPassword.text!)
+          signInUser(email: textFieldEmail.text ?? "", password: textFieldPassword.text ?? "")
         }
     }
 

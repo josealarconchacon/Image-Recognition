@@ -50,30 +50,31 @@ class UserProfileViewController: UIViewController {
 
     @IBAction func signOutButtonPress(_ sender: UIButton) {
         signOut()
-        do {
-            try Auth.auth().signOut()
-            userDefault.removeObject(forKey: "usersignedin")
-            userDefault.synchronize()
-            
-        } catch let error as NSError {
-            print(error.localizedDescription)
-            print("Loging Out")
-        }
     }
-    
+
+    /// Asks for confirmation; signs out only when the user taps OK.
     func signOut() {
-        let alerController = UIAlertController(title:" \(userEmail.text!)", message: " Are you sure you want to Logout?", preferredStyle: .actionSheet)
-        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+        let alerController = UIAlertController(title: userEmail.text, message: "Are you sure you want to Logout?", preferredStyle: .actionSheet)
+        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+            do {
+                try Auth.auth().signOut()
+            } catch {
+                self.showAlert(title: "Could not log out", message: error.localizedDescription, actionTitle: "OK")
+                return
+            }
+            self.userDefault.removeObject(forKey: "usersignedin")
             let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
             guard let destination = storyboard.instantiateViewController(withIdentifier: "MainePageViewController") as? MainePageViewController else {return}
             destination.sigIn = self.accountTo
-            self.present(destination, animated: true, completion:  nil)
+            // Replace the whole screen stack instead of presenting on top of it.
+            self.view.window?.rootViewController = destination
         }
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action) in }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel)
         alerController.addAction(okAction)
         alerController.addAction(cancel)
+        alerController.popoverPresentationController?.sourceView = signOutButton
+        alerController.popoverPresentationController?.sourceRect = signOutButton.bounds
         self.present(alerController, animated:  true)
-
     }
 }
 extension UserProfileViewController: UITableViewDataSource, UITableViewDelegate {

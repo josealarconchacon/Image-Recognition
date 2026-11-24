@@ -29,44 +29,56 @@ final class ImageManager {
 
     static var manager = ImageManager()
     private init(){}
-    // Uploading Image
-    func uploadImage(image: UIImage, fileName: String, completion: @escaping (URL) -> Void) {
-        
-        let imageRef = imageStorageRef.child(fileName)
-        let metaData = StorageMetadata()
-        metaData.cacheControl = "public,max-age=300"
-        metaData.contentType = "image/png"
-        
-        var newImageURL = ""
-        
-        guard let imageData = image.jpegData(compressionQuality: 1.0) else { return }
-        imageRef.putData(imageData)
-        
-
-            imageRef.downloadURL { (url, error) in
-                guard let downloadURL = url else {
-                    print("Uh-oh, an error occurred!")
-                    return
-                }
-
-                if let url = url {
-                    ImageCache.shared.fetchImageFromNetwork(urlString: url.absoluteString, completion: { (error, image) in
-                        if let error = error {
-                            print(error)
-                        }
-                        if image != nil {
-                            self.delegate?.didFetchImage(self, imageURL: url)
-                            print(url.absoluteString)
-                            self.URLtoSend = downloadURL
-                            print("URL IS -> \(downloadURL)")
-                            newImageURL = downloadURL.absoluteString
-                            print(newImageURL)
-                            DispatchQueue.main.async { completion(downloadURL) }
-                        }
-                    })
-                }
+    enum UploadError: LocalizedError {
+        case encodingFailed
+        case missingDownloadURL
+        var errorDescription: String? {
+            switch self {
+            case .encodingFailed: return "The image could not be encoded."
+            case .missingDownloadURL: return "The upload finished but no download URL was returned."
             }
         }
+    }
+
+    /// Uploads the image under a unique name in `faceR/` and returns its download URL.
+    /// The completion always runs exactly once, on the main queue.
+    func uploadImage(image: UIImage, completion: @escaping (Result<URL, Error>) -> Void) {
+        func finish(_ result: Result<URL, Error>) {
+            DispatchQueue.main.async { completion(result) }
+        }
+        guard let imageData = image.jpegData(compressionQuality: 0.8) else {
+            finish(.failure(UploadError.encodingFailed))
+            return
+        }
+        // A unique name per upload, so one user's photo never overwrites another's.
+        let fileRef = imageRef.child("\(UUID().uuidString).jpg")
+        let metaData = StorageMetadata()
+        metaData.cacheControl = "public,max-age=300"
+        metaData.contentType = "image/jpeg"
+
+        fileRef.putData(imageData, metadata: metaData) { (_, error) in
+            if let error = error {
+                finish(.failure(error))
+                return
+            }
+            // Ask for the URL only once the upload has finished.
+            fileRef.downloadURL { (url, error) in
+                if let error = error {
+                    finish(.failure(error))
+                    return
+                }
+                guard let url = url else {
+                    finish(.failure(UploadError.missingDownloadURL))
+                    return
+                }
+                self.URLtoSend = url
+                DispatchQueue.main.async {
+                    self.delegate?.didFetchImage(self, imageURL: url)
+                }
+                finish(.success(url))
+            }
+        }
+    }
     
     ///
     public func postImage(data: Data, imageName: String, firstLastName: String) {

@@ -8,47 +8,22 @@
 
 import Foundation
 
-
-
 final class FaceDetectAPIClient {
-  
-    
-    static func fetchImageFaceUrl(urlInput: URL, completionHandler: @escaping ((DetectFaceResponse) -> Void)) {
-        let endpointURLString = "https://eastus.api.cognitive.microsoft.com/face/v1.0/detect?returnFaceId=true&returnFaceLandmarks=false"
-        guard let url = URL(string: endpointURLString) else {
-            print("Bad url")
-            return
-        }
-        var request = URLRequest(url: url)
-        request.addValue("REMOVED_AZURE_KEY", forHTTPHeaderField: "Ocp-Apim-Subscription-Key")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        request.httpMethod = "POST"
-        
-        let newFaceInfo = DetectFaceUrl.init(url: urlInput)
-        do {
-            let data = try JSONEncoder().encode(newFaceInfo)
-            request.httpBody = data
-        } catch {
-            print("json encoding error: \(error)")
-        }
-        let task = URLSession.shared.uploadTask(with: request, from: nil) { (data, response, error) in
-            if let error = error {
-                print("upload task error:  \(error)")
-            } else if let data = data {
-                print("data: \(data)")
-                do {
-                    let data = try JSONDecoder().decode([DetectFaceResponse].self, from: data)
-                    guard let dataUnwrapped = data.first else {return}
-                        completionHandler(dataUnwrapped)
-                    
-                } catch {
-                    print("decoding error: \(error)")
+    /// Detects the first face in the image at `urlInput`.
+    /// Fails with `.noFaceDetected` when the photo contains no face.
+    static func fetchImageFaceUrl(urlInput: URL, completionHandler: @escaping (Result<DetectFaceResponse, AppError>) -> Void) {
+        FaceAPI.post(path: "/detect?returnFaceId=true&returnFaceLandmarks=false",
+                     body: DetectFaceUrl(url: urlInput)) { (result: Result<[DetectFaceResponse], AppError>) in
+            switch result {
+            case .success(let faces):
+                if let face = faces.first {
+                    completionHandler(.success(face))
+                } else {
+                    completionHandler(.failure(.noFaceDetected))
                 }
+            case .failure(let error):
+                completionHandler(.failure(error))
             }
         }
-        task.resume()
     }
-    
 }
-
