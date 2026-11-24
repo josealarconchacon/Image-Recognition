@@ -1,0 +1,20 @@
+# --- Secrets: keep local, never commit ---
+# Copy "ImageRecognition/Secret Key/SecretKey.swift.example" to SecretKey.swift and add your key.
+ImageRecognition/Secret Key/SecretKey.swift
+# Download from Firebase console → Project settings → Your apps.
+ImageRecognition/GoogleService-Info.plist
+
+# --- CocoaPods: rebuilt by `pod install` from Podfile.lock ---
+Pods/
+
+# --- Xcode build output and per-user state ---
+Build/
+build/
+DerivedData/
+xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+*.xccheckout
+
+# --- macOS ---
+.DS_Store
